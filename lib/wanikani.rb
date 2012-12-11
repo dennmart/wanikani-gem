@@ -5,6 +5,7 @@ require 'wanikani/user'
 require 'wanikani/study_queue'
 require 'wanikani/level'
 require 'wanikani/srs'
+require 'wanikani/recent_unlocks'
 
 module Wanikani
   API_ENDPOINT = "http://www.wanikani.com/api/user"
