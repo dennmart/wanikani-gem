@@ -17,10 +17,10 @@ module Wanikani
     @@api_key
   end
 
-  def self.api_response(resource)
+  def self.api_response(resource, optional_arg = nil)
     raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
 
-    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}")
+    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
     return MultiJson.load(response)
   end
 end
