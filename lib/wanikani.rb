@@ -3,6 +3,7 @@ require 'multi_json'
 
 require 'wanikani/user'
 require 'wanikani/study_queue'
+require 'wanikani/level'
 
 module Wanikani
   API_ENDPOINT = "http://www.wanikani.com/api/user"
