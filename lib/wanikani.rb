@@ -11,15 +11,16 @@ module Wanikani
   API_ENDPOINT = "http://www.wanikani.com/api/user"
 
   def self.api_key=(api_key)
-    @@api_key = api_key
+    @api_key = api_key
   end
 
   def self.api_key
-    @@api_key
+    @api_key
   end
 
   def self.api_response(resource, optional_arg = nil)
     raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
+    raise ArgumentError, "You must set your Wanikani API key before querying the API" if Wanikani.api_key.nil? || Wanikani.api_key.empty?
 
     begin
       response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
