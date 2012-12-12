@@ -21,7 +21,23 @@ module Wanikani
   def self.api_response(resource, optional_arg = nil)
     raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
 
-    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
-    return MultiJson.load(response)
+    begin
+      response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
+      parsed_response = MultiJson.load(response)
+      
+      if parsed_response.has_key?("error")
+        self.raise_exception(parsed_response["error"]["message"])
+      else
+        return parsed_response
+      end
+    rescue => error
+      self.raise_exception(error.message)
+    end
+  end
+
+  private
+
+  def self.raise_exception(message)
+    raise Exception, "There was an error fetching the data from Wanikani (#{message})"
   end
 end
