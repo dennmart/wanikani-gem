@@ -1,0 +1,20 @@
+{
+  "user_information": {
+    "username": "crabigator",
+    "gravatar": "gravatarkey",
+    "level": 25,
+    "title": "Turtles",
+    "about": "I am the almighty crabigator!",
+    "website": "http://www.wanikani.com/",
+    "twitter": "WaniKaniApp",
+    "topics_count": 1000,
+    "posts_count": 500,
+    "creation_date": 1337820000
+  },
+  "requested_information": {
+    "radicals_progress": 5,
+    "radicals_total": 9,
+    "kanji_progress": 10,
+    "kanji_total": 23
+  }
+}

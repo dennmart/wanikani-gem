@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "user_not_found",
+    "message": "User does not exist."
+  }
+}
