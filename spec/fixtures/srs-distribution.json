@@ -1,0 +1,46 @@
+{
+  "user_information": {
+    "username": "crabigator",
+    "gravatar": "gravatarkey",
+    "level": 25,
+    "title": "Turtles",
+    "about": "I am the almighty crabigator!",
+    "website": "http://www.wanikani.com/",
+    "twitter": "WaniKaniApp",
+    "topics_count": 1000,
+    "posts_count": 500,
+    "creation_date": 1337820000
+  },
+  "requested_information": {
+    "apprentice": {
+      "radicals": 1,
+      "kanji": 4,
+      "vocabulary": 12,
+      "total": 17
+    },
+    "guru": {
+      "radicals": 24,
+      "kanji": 75,
+      "vocabulary": 181,
+      "total": 280
+    },
+    "master": {
+      "radicals": 38,
+      "kanji": 37,
+      "vocabulary": 82,
+      "total": 157
+    },
+    "enlighten": {
+      "radicals": 82,
+      "kanji": 93,
+      "vocabulary": 189,
+      "total": 364
+    },
+    "burned": {
+      "radicals": 19,
+      "kanji": 0,
+      "vocabulary": 0,
+      "total": 19
+    }
+  }
+}
