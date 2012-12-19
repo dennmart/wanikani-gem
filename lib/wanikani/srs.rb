@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Wanikani
   class SRS
     ITEM_TYPES = %w(apprentice guru master enlighten burned all)

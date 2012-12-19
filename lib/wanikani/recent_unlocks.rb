@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module Wanikani
   class RecentUnlocks
     def self.list(limit = 10)

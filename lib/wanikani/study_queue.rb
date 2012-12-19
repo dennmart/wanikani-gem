@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Wanikani
   class StudyQueue
     def self.queue
