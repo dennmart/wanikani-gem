@@ -1,0 +1,21 @@
+{
+  "user_information": {
+    "username": "crabigator",
+    "gravatar": "gravatarkey",
+    "level": 25,
+    "title": "Turtles",
+    "about": "I am the almighty crabigator!",
+    "website": "http://www.wanikani.com/",
+    "twitter": "WaniKaniApp",
+    "topics_count": 1000,
+    "posts_count": 500,
+    "creation_date": 1337820000
+  },
+  "requested_information": {
+    "lessons_available": 0,
+    "reviews_available": 0,
+    "next_review_date": 1355893492,
+    "reviews_available_next_hour": 0,
+    "reviews_available_next_day": 0
+  }
+}
