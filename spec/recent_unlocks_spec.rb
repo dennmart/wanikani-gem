@@ -65,4 +65,97 @@ describe Wanikani::RecentUnlocks do
       end
     end
   end
+
+  describe ".radicals" do
+    context "limit parameter" do
+      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.radicals
+      end
+
+      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.radicals(3)
+      end
+    end
+
+    context "API response" do
+      before(:each) do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+      end
+
+      it "only returns the radicals from the list of recent unlocks" do
+        radicals = Wanikani::RecentUnlocks.radicals(3)
+        radicals.size.should == 1
+      end
+    end
+  end
+
+  describe ".vocabulary" do
+    context "limit parameter" do
+      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.vocabulary
+      end
+
+      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.vocabulary(3)
+      end
+    end
+
+    context "API response" do
+      before(:each) do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+      end
+
+      it "only returns the vocabulary from the list of recent unlocks" do
+        vocabulary = Wanikani::RecentUnlocks.vocabulary(3)
+        vocabulary.size.should == 1
+      end
+    end
+  end
+
+  describe ".kanji" do
+    context "limit parameter" do
+      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.kanji
+      end
+
+      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+        Wanikani::RecentUnlocks.kanji(3)
+      end
+    end
+
+    context "API response" do
+      before(:each) do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
+                             :body => "spec/fixtures/recent-unlocks.json")
+      end
+
+      it "only returns the Kanji from the list of recent unlocks" do
+        kanji = Wanikani::RecentUnlocks.kanji(3)
+        kanji.size.should == 1
+      end
+    end
+  end
 end
