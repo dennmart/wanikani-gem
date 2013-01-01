@@ -8,6 +8,9 @@ require 'wanikani/level'
 require 'wanikani/srs'
 require 'wanikani/recent_unlocks'
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 module Wanikani
   API_ENDPOINT = "http://www.wanikani.com/api/user"
 
