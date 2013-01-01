@@ -9,6 +9,8 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = "http://github.com/dennmart/wanikani-gem"
 
+  s.required_ruby_version = '>= 1.9.2'
+
   s.add_runtime_dependency "rest-client", "~> 1.6"
   s.add_runtime_dependency "multi_json", "~> 1.5.0"
 
