@@ -7,6 +7,7 @@ require 'wanikani/study_queue'
 require 'wanikani/level'
 require 'wanikani/srs'
 require 'wanikani/recent_unlocks'
+require 'wanikani/critical_items'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8

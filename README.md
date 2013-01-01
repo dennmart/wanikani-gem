@@ -94,6 +94,18 @@ Wanikani::RecentUnlocks.kanji(1)
   # => [{"type"=>"kanji", "character"=>"辺", "meaning"=>"area", "onyomi"=>"へん", "kunyomi"=>"あたり", "important_reading"=>"onyomi", "level"=>7, "unlocked_date"=>1355762469}]
 ```
 
+### Critical Items
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# You can pass an optional parameter for getting critical items under a specific percentage.
+Wanikani::CriticalItems.critical(90)
+  # => [{"type"=>"vocabulary", "character"=>"地下", "kana"=>"ちか", "meaning"=>"underground", "level"=>6, "percentage"=>"84"}, {"type"=>"kanji", "character"=>"麦", "meaning"=>"wheat", "onyomi"=>nil, "kunyomi"=>"むぎ", "important_reading"=>"kunyomi", "level"=>5, "percentage"=>"89"}, {"type"=>"radical", "character"=>"亠", "meaning"=>"lid", "image"=>nil, "level"=>1, "percentage"=>"90"}]
+```
+
 ## Contributing
 
 I'll be super-happy if you guys help giving back! If you want to do some hacking on the WaniKani gem, this is a good guideline to get started:
