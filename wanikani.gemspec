@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Dennis Martinez"]
   s.email       = "dennis@dennmart.com"
   s.files       = Dir['lib/**/*.rb']
-  s.homepage    = "http://github.com/dennmart/wanikani"
+  s.homepage    = "http://github.com/dennmart/wanikani-gem"
 
   s.add_runtime_dependency "rest-client", "~> 1.6"
   s.add_runtime_dependency "multi_json", "~> 1.5.0"
