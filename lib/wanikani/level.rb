@@ -8,5 +8,15 @@ module Wanikani
       api_response = Wanikani.api_response("level-progression")
       return api_response["requested_information"]
     end
+
+    # Gets the radicals for the specified levels.
+    #
+    # @param [Integer, Array] levels returns the list of radicals for one or more levels
+    # @return [Array] Hashes with the radicals for the specified level(s).
+    def self.radicals(levels = nil)
+      levels = levels.join(',') if levels.is_a?(Array)
+      api_response = Wanikani.api_response("radicals", levels)
+      return api_response["requested_information"]
+    end
   end
 end

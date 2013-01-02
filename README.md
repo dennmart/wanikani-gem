@@ -106,6 +106,22 @@ Wanikani::CriticalItems.critical(90)
   # => [{"type"=>"vocabulary", "character"=>"地下", "kana"=>"ちか", "meaning"=>"underground", "level"=>6, "percentage"=>"84"}, {"type"=>"kanji", "character"=>"麦", "meaning"=>"wheat", "onyomi"=>nil, "kunyomi"=>"むぎ", "important_reading"=>"kunyomi", "level"=>5, "percentage"=>"89"}, {"type"=>"radical", "character"=>"亠", "meaning"=>"lid", "image"=>nil, "level"=>1, "percentage"=>"90"}]
 ```
 
+### Radicals List by level
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# Using an Integer as the parameter will fetch the radical information for a single level.
+Wanikani::Level.radicals(1)
+  # => [{"character"=>"ト", "meaning"=>"toe", "image"=>nil, "level"=>1, "stats"=>{"srs"=>"burned", "unlocked_date"=>1337820726, "available_date"=>1354754764, "burned"=>true, "burned_date"=>1354754764, "meaning_correct"=>8, "meaning_incorrect"=>0, "meaning_max_streak"=>8, "meaning_current_streak"=>8, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil}}, {"character"=>"八", "meaning"=>"volcano", "image"=>"http://s3.wanikani.com/images/radicals/040cbe763aa3526b2905c96062137dd3db55a38a.png", "level"=>1, "stats"=>{"srs"=>"master", "unlocked_date"=>1337820726, "available_date"=>1358751147, "burned"=>false, "burned_date"=>0, "meaning_correct"=>10, "meaning_incorrect"=>2, "meaning_max_streak"=>8, "meaning_current_streak"=>2, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil}}, ... ]
+
+# You can also use an array of Integers to get the radical information for multiple levels.
+Wanikani::Level.radicals([24, 25])
+  # => [{"character"=>"両", "meaning"=>"both", "image"=>nil, "level"=>25, "stats"=>nil}, {"character"=>"友", "meaning"=>"friend", "image"=>nil, "level"=>25, "stats"=>nil}, ...]
+```
+
 ## Contributing
 
 I'll be super-happy if you guys help giving back! If you want to do some hacking on the WaniKani gem, this is a good guideline to get started:
