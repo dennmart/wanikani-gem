@@ -1,0 +1,62 @@
+{
+  "user_information": {
+    "username": "crabigator",
+    "gravatar": "gravatarkey",
+    "level": 25,
+    "title": "Turtles",
+    "about": "I am the almighty crabigator!",
+    "website": "http://www.wanikani.com/",
+    "twitter": "WaniKaniApp",
+    "topics_count": 1000,
+    "posts_count": 500,
+    "creation_date": 1337820000
+  },
+  "requested_information": [
+    {
+      "character": "一",
+      "meaning": "one",
+      "onyomi": "いち",
+      "kunyomi": "ひと.*",
+      "important_reading": "onyomi",
+      "level": 1,
+      "stats": {
+        "srs": "enlighten",
+        "unlocked_date": 1338820854,
+        "available_date": 1357346947,
+        "burned": false,
+        "burned_date": 0,
+        "meaning_correct": 7,
+        "meaning_incorrect": 0,
+        "meaning_max_streak": 7,
+        "meaning_current_streak": 7,
+        "reading_correct": 7,
+        "reading_incorrect": 0,
+        "reading_max_streak": 7,
+        "reading_current_streak": 7
+      }
+    },
+    {
+      "character": "口",
+      "meaning": "mouth",
+      "onyomi": "こう",
+      "kunyomi": "くち",
+      "important_reading": "onyomi",
+      "level": 1,
+      "stats": {
+        "srs": "guru",
+        "unlocked_date": 1338820840,
+        "available_date": 1356812196,
+        "burned": false,
+        "burned_date": 0,
+        "meaning_correct": 32,
+        "meaning_incorrect": 1,
+        "meaning_max_streak": 25,
+        "meaning_current_streak": 7,
+        "reading_correct": 32,
+        "reading_incorrect": 21,
+        "reading_max_streak": 6,
+        "reading_current_streak": 6
+      }
+    }
+  ]
+}

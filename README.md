@@ -122,6 +122,22 @@ Wanikani::Level.radicals([24, 25])
   # => [{"character"=>"両", "meaning"=>"both", "image"=>nil, "level"=>25, "stats"=>nil}, {"character"=>"友", "meaning"=>"friend", "image"=>nil, "level"=>25, "stats"=>nil}, ...]
 ```
 
+### Kanji List by level
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# Using an Integer as the parameter will fetch the Kanji information for a single level.
+Wanikani::Level.kanji(1)
+  # => [{"character"=>"一", "meaning"=>"one", "onyomi"=>"いち", "kunyomi"=>"ひと.*", "important_reading"=>"onyomi", "level"=>1, "stats"=>{"srs"=>"enlighten", "unlocked_date"=>1338820854, "available_date"=>1357346947, "burned"=>false, "burned_date"=>0, "meaning_correct"=>7, "meaning_incorrect"=>0, "meaning_max_streak"=>7, "meaning_current_streak"=>7, "reading_correct"=>7, "reading_incorrect"=>0, "reading_max_streak"=>7, "reading_current_streak"=>7}}, {"character"=>"口", "meaning"=>"mouth", "onyomi"=>"こう", "kunyomi"=>"くち", "important_reading"=>"onyomi", "level"=>1, "stats"=>{"srs"=>"guru", "unlocked_date"=>1338820840, "available_date"=>1356812196, "burned"=>false, "burned_date"=>0, "meaning_correct"=>32, "meaning_incorrect"=>1, "meaning_max_streak"=>25, "meaning_current_streak"=>7, "reading_correct"=>32, "reading_incorrect"=>21, "reading_max_streak"=>6, "reading_current_streak"=>6}}, ...]
+
+# You can also use an array of Integers to get the Kanji information for multiple levels.
+Wanikani::Level.kanji([24, 25])
+  # => [{"character"=>"模", "meaning"=>"imitation", "onyomi"=>"も", "kunyomi"=>"None", "important_reading"=>"onyomi", "level"=>25, "stats"=>nil}, {"character"=>"替", "meaning"=>"replace", "onyomi"=>"たい", "kunyomi"=>"か", "important_reading"=>"kunyomi", "level"=>25, "stats"=>nil}, ...]
+```
+
 ## Contributing
 
 I'll be super-happy if you guys help giving back! If you want to do some hacking on the WaniKani gem, this is a good guideline to get started:

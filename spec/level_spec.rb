@@ -76,5 +76,63 @@ describe Wanikani::Level do
       end
     end
   end
-end
 
+  describe ".kanji" do
+    context "levels parameter" do
+      it "can accept an Integer as a single level" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1",
+                             :body => "spec/fixtures/kanji.json")
+        Wanikani::Level.kanji(1)
+      end
+
+      it "converts an array of Integers to a comma-separate string of levels" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/2,5,10,25",
+                             :body => "spec/fixtures/kanji.json")
+        Wanikani::Level.kanji([2, 5, 10, 25])
+      end
+    end
+
+    context "API response" do
+      before(:each) do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1",
+                             :body => "spec/fixtures/kanji.json")
+      end
+
+      it "returns an array of radicals for the specified level" do
+        kanji = Wanikani::Level.kanji(1)
+        kanji.should be_an(Array)
+        kanji.size.should == 2
+      end
+
+      it "returns the information relating to the returned kanji" do
+        kanji = Wanikani::Level.kanji(1)
+        kanji = kanji.first
+        kanji["character"].should == "一"
+        kanji["meaning"].should == "one"
+        kanji["onyomi"].should == "いち"
+        kanji["kunyomi"].should == "ひと.*"
+        kanji["important_reading"].should == "onyomi"
+        kanji["level"].should == 1
+        kanji["stats"].should be_a(Hash)
+
+        stats = kanji["stats"]
+        stats["srs"].should == "enlighten"
+        stats["unlocked_date"].should == 1338820854
+        stats["available_date"].should == 1357346947
+        stats["burned"].should be_false
+        stats["burned_date"].should == 0
+        stats["meaning_correct"].should == 7
+        stats["meaning_incorrect"].should == 0
+        stats["meaning_max_streak"].should == 7
+        stats["meaning_current_streak"].should == 7
+        stats["reading_correct"].should == 7
+        stats["reading_incorrect"].should == 0
+        stats["reading_max_streak"].should == 7
+        stats["reading_current_streak"].should == 7
+      end
+    end
+  end
+end
