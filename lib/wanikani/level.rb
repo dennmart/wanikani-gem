@@ -28,5 +28,15 @@ module Wanikani
       api_response = Wanikani.api_response("kanji", levels)
       return api_response["requested_information"]
     end
+
+    # Gets the vocabulary for the specified levels.
+    #
+    # @param [Integer, Array] levels returns the list of vocabulary for one or more levels
+    # @return [Array] Hashes with the vocabulary for the specified level(s).
+    def self.vocabulary(levels = nil)
+      levels = levels.join(',') if levels.is_a?(Array)
+      api_response = Wanikani.api_response("vocabulary", levels)
+      return api_response["requested_information"]
+    end
   end
 end

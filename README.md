@@ -106,7 +106,7 @@ Wanikani::CriticalItems.critical(90)
   # => [{"type"=>"vocabulary", "character"=>"地下", "kana"=>"ちか", "meaning"=>"underground", "level"=>6, "percentage"=>"84"}, {"type"=>"kanji", "character"=>"麦", "meaning"=>"wheat", "onyomi"=>nil, "kunyomi"=>"むぎ", "important_reading"=>"kunyomi", "level"=>5, "percentage"=>"89"}, {"type"=>"radical", "character"=>"亠", "meaning"=>"lid", "image"=>nil, "level"=>1, "percentage"=>"90"}]
 ```
 
-### Radicals List by level
+### Radicals list by level
 
 ```ruby
 require 'wanikani'
@@ -122,7 +122,7 @@ Wanikani::Level.radicals([24, 25])
   # => [{"character"=>"両", "meaning"=>"both", "image"=>nil, "level"=>25, "stats"=>nil}, {"character"=>"友", "meaning"=>"friend", "image"=>nil, "level"=>25, "stats"=>nil}, ...]
 ```
 
-### Kanji List by level
+### Kanji list by level
 
 ```ruby
 require 'wanikani'
@@ -136,6 +136,22 @@ Wanikani::Level.kanji(1)
 # You can also use an array of Integers to get the Kanji information for multiple levels.
 Wanikani::Level.kanji([24, 25])
   # => [{"character"=>"模", "meaning"=>"imitation", "onyomi"=>"も", "kunyomi"=>"None", "important_reading"=>"onyomi", "level"=>25, "stats"=>nil}, {"character"=>"替", "meaning"=>"replace", "onyomi"=>"たい", "kunyomi"=>"か", "important_reading"=>"kunyomi", "level"=>25, "stats"=>nil}, ...]
+```
+
+### Vocabulary list by level
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# Using an Integer as the parameter will fetch the vocabulary information for a single level.
+Wanikani::Level.vocabulary(1)
+  # => [{"character"=>"ふじ山", "kana"=>"ふじさん", "meaning"=>"mt fuji, mount fuji", "level"=>1, "stats"=>{"srs"=>"enlighten", "unlocked_date"=>1342432965, "available_date"=>1358369044, "burned"=>false, "burned_date"=>0, "meaning_correct"=>7, "meaning_incorrect"=>0, "meaning_max_streak"=>7, "meaning_current_streak"=>7, "reading_correct"=>7, "reading_incorrect"=>0, "reading_max_streak"=>7, "reading_current_streak"=>7}}, {"character"=>"下げる", "kana"=>"さげる", "meaning"=>"to hang, to lower", "level"=>1, "stats"=>{"srs"=>"guru", "unlocked_date"=>1342414223, "available_date"=>1357146898, "burned"=>false, "burned_date"=>0, "meaning_correct"=>19, "meaning_incorrect"=>3, "meaning_max_streak"=>9, "meaning_current_streak"=>3, "reading_correct"=>19, "reading_incorrect"=>2, "reading_max_streak"=>11, "reading_current_streak"=>7}}, ...]
+
+# You can also use an array of Integers to get the vocabulary information for multiple levels.
+Wanikani::Level.vocabulary([24, 25])
+  # => [{"character"=>"後輩", "kana"=>"こうはい", "meaning"=>"junior, one's junior", "level"=>25, "stats"=>nil}, {"character"=>"年輩", "kana"=>"ねんぱい", "meaning"=>"elderly person, old person", "level"=>25, "stats"=>nil}, ...]
 ```
 
 ## Contributing

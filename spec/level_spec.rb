@@ -29,7 +29,7 @@ describe Wanikani::Level do
         Wanikani::Level.radicals(1)
       end
 
-      it "converts an array of Integers to a comma-separate string of levels" do
+      it "converts an array of Integers to a comma-separated string of levels" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/2,5,10,25",
                              :body => "spec/fixtures/radicals.json")
@@ -86,7 +86,7 @@ describe Wanikani::Level do
         Wanikani::Level.kanji(1)
       end
 
-      it "converts an array of Integers to a comma-separate string of levels" do
+      it "converts an array of Integers to a comma-separated string of levels" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/2,5,10,25",
                              :body => "spec/fixtures/kanji.json")
@@ -101,7 +101,7 @@ describe Wanikani::Level do
                              :body => "spec/fixtures/kanji.json")
       end
 
-      it "returns an array of radicals for the specified level" do
+      it "returns an array of kanji for the specified level" do
         kanji = Wanikani::Level.kanji(1)
         kanji.should be_an(Array)
         kanji.size.should == 2
@@ -122,6 +122,63 @@ describe Wanikani::Level do
         stats["srs"].should == "enlighten"
         stats["unlocked_date"].should == 1338820854
         stats["available_date"].should == 1357346947
+        stats["burned"].should be_false
+        stats["burned_date"].should == 0
+        stats["meaning_correct"].should == 7
+        stats["meaning_incorrect"].should == 0
+        stats["meaning_max_streak"].should == 7
+        stats["meaning_current_streak"].should == 7
+        stats["reading_correct"].should == 7
+        stats["reading_incorrect"].should == 0
+        stats["reading_max_streak"].should == 7
+        stats["reading_current_streak"].should == 7
+      end
+    end
+  end
+
+  describe ".vocabulary" do
+    context "levels parameter" do
+      it "can accept an Integer as a single level" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1",
+                             :body => "spec/fixtures/vocabulary.json")
+        Wanikani::Level.vocabulary(1)
+      end
+
+      it "converts an array of Integers to a comma-separated string of levels" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/2,5,10,25",
+                             :body => "spec/fixtures/vocabulary.json")
+        Wanikani::Level.vocabulary([2, 5, 10, 25])
+      end
+    end
+
+    context "API response" do
+      before(:each) do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1",
+                             :body => "spec/fixtures/vocabulary.json")
+      end
+
+      it "returns an array of vocabulary for the specified level" do
+        vocabulary = Wanikani::Level.vocabulary(1)
+        vocabulary.should be_an(Array)
+        vocabulary.size.should == 2
+      end
+
+      it "returns the information relating to the returned vocabulary" do
+        vocabulary = Wanikani::Level.vocabulary(1)
+        vocabulary = vocabulary.first
+        vocabulary["character"].should == "ふじ山"
+        vocabulary["kana"].should == "ふじさん"
+        vocabulary["meaning"].should == "mt fuji, mount fuji"
+        vocabulary["level"].should == 1
+        vocabulary["stats"].should be_a(Hash)
+
+        stats = vocabulary["stats"]
+        stats["srs"].should == "enlighten"
+        stats["unlocked_date"].should == 1342432965
+        stats["available_date"].should == 1358369044
         stats["burned"].should be_false
         stats["burned_date"].should == 0
         stats["meaning_correct"].should == 7
