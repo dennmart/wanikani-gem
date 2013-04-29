@@ -2,3 +2,5 @@
 *.gem
 .yardoc
 *.swp
+.ruby-gemset
+.ruby-version
