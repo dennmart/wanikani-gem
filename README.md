@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dennmart/wanikani-gem.png)](https://travis-ci.org/dennmart/wanikani-gem)
+[![Build Status](https://travis-ci.org/dennmart/wanikani-gem.png)](https://travis-ci.org/dennmart/wanikani-gem) [![Code Climate](https://codeclimate.com/github/dennmart/wanikani-gem.png)](https://codeclimate.com/github/dennmart/wanikani-gem)
 
 Want to get your Japanese Kanji studies in your Ruby? This gem uses [WaniKani's API](http://www.wanikani.com/api) so you can hook it into your Ruby projects.
 
