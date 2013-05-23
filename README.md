@@ -55,7 +55,7 @@ require 'wanikani'
 Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
 
 Wanikani::Level.progression
-  # => {"radicals_progress"=>5, "radicals_total"=>9, "kanji_progress"=>10, "kanji_total"=>23}
+  # => {"current_level"=>25, "radicals_progress"=>5, "radicals_total"=>9, "kanji_progress"=>10, "kanji_total"=>23}
 ```
 
 ### SRS Distribution

@@ -13,6 +13,7 @@ describe Wanikani::Level do
       level_info = Wanikani::Level.progression
       level_info.should be_a(Hash)
 
+      level_info["current_level"].should == 25
       level_info["radicals_progress"].should == 5
       level_info["radicals_total"].should == 9
       level_info["kanji_progress"].should == 10
