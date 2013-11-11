@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.email       = "dennis@dennmart.com"
   s.files       = Dir['lib/**/*.rb']
   s.homepage    = "http://github.com/dennmart/wanikani-gem"
+  s.license     = "MIT"
 
   s.required_ruby_version = '>= 1.9.2'
 
