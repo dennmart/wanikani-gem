@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = "wanikani"
-  s.version     = "0.0.5"
-  s.date        = "2013-10-19"
+  s.version     = "0.0.6"
+  s.date        = "2013-11-23"
   s.summary     = "Add Japanese Kanji learning goodness to your Ruby projects!"
   s.description = "Use WaniKani's (http://www.wanikani.com/) API in your Ruby applications"
   s.authors     = ["Dennis Martinez"]
