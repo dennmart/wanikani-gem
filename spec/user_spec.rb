@@ -25,4 +25,22 @@ describe Wanikani::User do
       user_info["creation_date"].should == 1337820000
     end
   end
+
+  describe ".on_vacation?" do
+    it "returns false if the vacation_date field is null" do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/user-information.json")
+
+      Wanikani::User.on_vacation?.should be_false
+    end
+
+    it "returns true if the vacation_date field is not null" do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/user-on-vacation.json")
+
+      Wanikani::User.on_vacation?.should be_true
+    end
+  end
 end
