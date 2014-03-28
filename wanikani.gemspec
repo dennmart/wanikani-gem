@@ -1,6 +1,8 @@
+require_relative 'lib/version'
+
 Gem::Specification.new do |s|
   s.name        = "wanikani"
-  s.version     = "0.0.6"
+  s.version     = Wanikani::VERSION
   s.date        = "2013-11-23"
   s.summary     = "Add Japanese Kanji learning goodness to your Ruby projects!"
   s.description = "Use WaniKani's (http://www.wanikani.com/) API in your Ruby applications"
