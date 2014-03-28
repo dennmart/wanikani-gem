@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.2'
 
   s.add_runtime_dependency "rest-client", "~> 1.6"
-  s.add_runtime_dependency "multi_json", "~> 1.8"
+  s.add_runtime_dependency "multi_json", "~> 1.9"
 
   s.add_development_dependency "rspec", "~> 2.14"
-  s.add_development_dependency "fakeweb", "~> 1.3.0 "
+  s.add_development_dependency "fakeweb", "~> 1.3"
 end
