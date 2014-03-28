@@ -30,7 +30,7 @@ module Wanikani
     begin
       response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
       parsed_response = MultiJson.load(response)
-      
+
       if parsed_response.has_key?("error")
         self.raise_exception(parsed_response["error"]["message"])
       else
@@ -39,6 +39,14 @@ module Wanikani
     rescue => error
       self.raise_exception(error.message)
     end
+  end
+
+  def self.valid_api_key?
+    return false if Wanikani.api_key.nil? || Wanikani.api_key.empty?
+
+    # TODO: Figure out better way of doing this.
+    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/user-information/")
+    !MultiJson.load(response).has_key?("error")
   end
 
   private

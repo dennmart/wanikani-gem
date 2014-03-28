@@ -61,4 +61,30 @@ describe Wanikani do
       api_response.should be_a(Hash)
     end
   end
+
+  describe ".valid_api_key?" do
+    it "returns false if Wanikani.api_key is nil" do
+      Wanikani.api_key = nil
+      Wanikani.valid_api_key?.should be_false
+    end
+
+    it "returns false if Wanikani.api_key is an empty string" do
+      Wanikani.api_key = ""
+      Wanikani.valid_api_key?.should be_false
+    end
+
+    it "returns false if the API call to WaniKani contains an error" do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/error.json")
+      Wanikani.valid_api_key?.should be_false
+    end
+
+    it "returns false if the API call to WaniKani is valid" do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/user-information.json")
+      Wanikani.valid_api_key?.should be_true
+    end
+  end
 end
