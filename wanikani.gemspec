@@ -1,4 +1,5 @@
-require_relative 'lib/version'
+$:.push File.expand_path("../lib", __FILE__)
+require 'version'
 
 Gem::Specification.new do |s|
   s.name        = "wanikani"
