@@ -1,22 +1,12 @@
 # WaniKani gem - Changelog
 
+### 0.0.8
+
+- Added `Wanikani::User.gravatar_url` to return the [Gravatar](http://en.gravatar.com/) image URL
+
 ### 0.0.7
 
 - Added `Wanikani.valid_api_key?` method
-
-```ruby
-require 'wanikani'
-
-# Using an invalid API Key:
-Wanikani.api_key = "INVALID_API_KEY"
-Wanikani.valid_api_key?
-  # => false
-
-# Using a valid API key:
-Wanikani.api_key = "VALID_API_KEY"
-Wanikani.valid_api_key?
-  # => true
-```
 
 ### 0.0.6
 

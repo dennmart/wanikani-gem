@@ -43,4 +43,48 @@ describe Wanikani::User do
       Wanikani::User.on_vacation?.should be_true
     end
   end
+
+  describe ".gravatar_url" do
+    before(:each) do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/user-information.json")
+    end
+
+    it "raises an ArgumentError if the size parameter is not an integer" do
+      expect {
+        Wanikani::User.gravatar_url(size: 123.45)
+      }.to raise_error(ArgumentError)
+    end
+
+    it "returns nil if the Gravatar hash for the user is nil" do
+      FakeWeb.register_uri(:get,
+                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
+                           :body => "spec/fixtures/user-information-no-gravatar.json")
+
+      Wanikani::User.gravatar_url.should be_nil
+    end
+
+    it "returns the secure Gravatar URL using the Gravatar hash for the user if the :secure option is set" do
+      gravatar_url = Wanikani::User.gravatar_url(secure: true)
+      gravatar_url.should match /https:\/\/secure\.gravatar\.com/
+      gravatar_url.should match /gravatarkey/
+    end
+
+    it "returns the non-secure Gratavar URL using the Gravatar hash for the user if the :secure option is not set" do
+      gravatar_url = Wanikani::User.gravatar_url
+      gravatar_url.should match /http:\/\/www\.gravatar\.com/
+      gravatar_url.should match /gravatarkey/
+    end
+
+    it "sets the 'mm' URL parameter for a default image" do
+      gravatar_url = Wanikani::User.gravatar_url
+      gravatar_url.should match /d=mm/
+    end
+
+    it "sets the 'size' URL parameter if specified" do
+      gravatar_url = Wanikani::User.gravatar_url(size: 250)
+      gravatar_url.should match /size=250/
+    end
+  end
 end

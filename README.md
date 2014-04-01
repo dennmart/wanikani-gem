@@ -17,6 +17,22 @@ Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
 
 You need to set your API key before attempting to use any of the gem's methods. If you're using the gem in Rails, you can set it as an initializer (for example, under `config/initializers/wanikani.rb`).
 
+You can verify if the API is valid by using the `Wanikani.valid_api_key?` method:
+
+```ruby
+require 'wanikani'
+
+# Using an invalid API Key:
+Wanikani.api_key = "INVALID_API_KEY"
+Wanikani.valid_api_key?
+  # => false
+
+# Using a valid API key:
+Wanikani.api_key = "VALID_API_KEY"
+Wanikani.valid_api_key?
+  # => true
+```
+
 ## Usage
 
 ### User Information
@@ -31,6 +47,26 @@ Wanikani::User.information
 
 Wanikani::User.on_vacation?
   # => false
+```
+
+### Gravatar URL
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# Non-secure default URL:
+Wanikani::User.gravatar_url
+  # => "http://www.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
+
+# Specifying a size:
+Wanikani::User.gravatar_url(size: 250)
+  # => "http://www.gravatar.com/avatar/GRAVATAR_KEY?d=mm&size=250"
+
+# Secure URL:
+Wanikani::User.gravatar_url(secure: true)
+  # => "https://secure.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
 ```
 
 ### Study Queue
