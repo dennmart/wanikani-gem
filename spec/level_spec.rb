@@ -191,6 +191,15 @@ describe Wanikani::Level do
         stats["reading_max_streak"].should == 7
         stats["reading_current_streak"].should == 7
       end
+
+      it "returns an array when fetching vocabulary without specifying a level" do
+        FakeWeb.register_uri(:get,
+                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/",
+                             :body => "spec/fixtures/vocabulary_all_levels.json")
+
+        vocabulary = Wanikani::Level.vocabulary
+        vocabulary.should be_a(Array)
+      end
     end
   end
 end

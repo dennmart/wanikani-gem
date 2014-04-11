@@ -18,7 +18,14 @@ module Wanikani
       levels = args.push
       levels = levels.join(',') if levels.is_a?(Array)
       api_response = Wanikani.api_response(name.to_s, levels)
-      return api_response["requested_information"]
+
+      # The vocabulary API call without specifying levels returns a Hash instead
+      # of an Array, so this is a hacky way of dealing with it.
+      if api_response["requested_information"].is_a?(Hash)
+        return api_response["requested_information"]["general"]
+      else
+        return api_response["requested_information"]
+      end
     end
   end
 end
