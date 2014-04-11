@@ -3,6 +3,7 @@
 ### 0.0.8
 
 - Added `Wanikani::User.gravatar_url` to return the [Gravatar](http://en.gravatar.com/) image URL
+- Fixed case when using `Wanikani::Level.vocabulary` and not specifying a level - the API call returns a Hash instead of an Array.
 
 ### 0.0.7
 
