@@ -31,6 +31,10 @@ Wanikani.valid_api_key?
 Wanikani.api_key = "VALID_API_KEY"
 Wanikani.valid_api_key?
   # => true
+
+# Alternatively, you can also specify an API key as a parameter without having to set Wanikani.api_key first.
+Wanikani.valid_api_key?("ANOTHER_VALID_API_KEY")
+  # => true
 ```
 
 ## Usage

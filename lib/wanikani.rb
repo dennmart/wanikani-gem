@@ -41,11 +41,11 @@ module Wanikani
     end
   end
 
-  def self.valid_api_key?
-    return false if Wanikani.api_key.nil? || Wanikani.api_key.empty?
+  def self.valid_api_key?(api_key = nil)
+    api_key ||= Wanikani.api_key
+    return false if api_key.nil? || api_key.empty?
 
-    # TODO: Figure out better way of doing this.
-    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/user-information/")
+    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{api_key}/user-information/")
     !MultiJson.load(response).has_key?("error")
   end
 
