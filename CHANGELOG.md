@@ -3,6 +3,7 @@
 ### 0.0.9
 
 - Added an optional parameter to `Wanikani.valid_api_key?` to allow checking an API key without having to set `Wanikani.api_key` beforehand.
+- Added a generic `Wanikani::Exception` class to define more specific exceptions when using this gem.
 
 ### 0.0.8
 

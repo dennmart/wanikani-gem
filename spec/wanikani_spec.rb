@@ -48,7 +48,7 @@ describe Wanikani do
 
       expect {
         Wanikani.api_response("user-information")
-      }.to raise_error(Exception, "There was an error fetching the data from Wanikani (User does not exist.)")
+      }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (User does not exist.)")
     end
 
     it "returns the JSON parsed as a Hash" do
