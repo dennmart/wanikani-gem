@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wanikani (0.0.8)
+    wanikani (0.0.9)
       multi_json (~> 1.9)
       rest-client (~> 1.6)
 
