@@ -1,8 +1,9 @@
 # WaniKani gem - Changelog
 
-### 0.0.10
+### 0.10
 
 - Added `Wanikani::SRS.items_by_type` to return all items for a specific SRS type.
+- Slight change in versioning, in preparation for that all-so-important 1.0 release!
 
 ### 0.0.9
 
