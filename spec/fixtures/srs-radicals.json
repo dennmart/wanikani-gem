@@ -1,0 +1,62 @@
+{
+  "user_information": {
+    "username": "crabigator",
+    "gravatar": "gravatarkey",
+    "level": 25,
+    "title": "Turtles",
+    "about": "I am the almighty crabigator!",
+    "website": "http://www.wanikani.com/",
+    "twitter": "WaniKaniApp",
+    "topics_count": 1000,
+    "posts_count": 500,
+    "creation_date": 1337820000
+  },
+  "requested_information": [
+    {
+      "character": "男",
+      "meaning": "man",
+      "image": null,
+      "level": 15,
+      "user_specific": {
+        "srs": "enlighten",
+        "unlocked_date": 1382560441,
+        "available_date": 1404773100,
+        "burned": false,
+        "burned_date": 0,
+        "meaning_correct": 7,
+        "meaning_incorrect": 0,
+        "meaning_max_streak": 7,
+        "meaning_current_streak": 7,
+        "reading_correct": null,
+        "reading_incorrect": null,
+        "reading_max_streak": null,
+        "reading_current_streak": null,
+        "meaning_note": null,
+        "user_synonyms": null
+      }
+    },
+    {
+      "character": "丙",
+      "meaning": "dynamite",
+      "image": null,
+      "level": 10,
+      "user_specific": {
+        "srs": "burned",
+        "unlocked_date": 1366941766,
+        "available_date": 1394492400,
+        "burned": true,
+        "burned_date": 1387518371,
+        "meaning_correct": 8,
+        "meaning_incorrect": 0,
+        "meaning_max_streak": 8,
+        "meaning_current_streak": 8,
+        "reading_correct": null,
+        "reading_incorrect": null,
+        "reading_max_streak": null,
+        "reading_current_streak": null,
+        "meaning_note": null,
+        "user_synonyms": null
+      }
+    }
+  ]
+}

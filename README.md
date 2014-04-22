@@ -116,6 +116,23 @@ Wanikani::SRS.distribution("apprentice")
   # => {"radicals"=>1, "kanji"=>4, "vocabulary"=>12, "total"=>17}
 ```
 
+### Items by SRS level
+
+```ruby
+require 'wanikani'
+
+Wanikani.api_key = "YOUR_API_KEY_GOES_HERE"
+
+# Item type can be one of the following:
+#  - burned
+#  - enlighten
+#  - master
+#  - guru
+#  - apprentice
+Wanikani::SRS.items_by_type("burned")
+  # => [{"character"=>"丙", "meaning"=>"dynamite", "image"=>nil, "level"=>10, "user_specific"=>{"srs"=>"burned", "unlocked_date"=>1366941766, "available_date"=>1394492400, "burned"=>true, "burned_date"=>1387518371, "meaning_correct"=>8, "meaning_incorrect"=>0, "meaning_max_streak"=>8, "meaning_current_streak"=>8, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil, "meaning_note"=>nil, "user_synonyms"=>nil}, "type"=>"radical"}, ...]
+```
+
 ### Recent Unlocks
 
 ```ruby
