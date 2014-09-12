@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani::Level do
+RSpec.describe Wanikani::Level do
   describe ".progression" do
     before(:each) do
       FakeWeb.register_uri(:get,
@@ -11,13 +9,13 @@ describe Wanikani::Level do
 
     it "returns a hash with the user's level progression" do
       level_info = Wanikani::Level.progression
-      level_info.should be_a(Hash)
+      expect(level_info).to be_a(Hash)
 
-      level_info["current_level"].should == 25
-      level_info["radicals_progress"].should == 5
-      level_info["radicals_total"].should == 9
-      level_info["kanji_progress"].should == 10
-      level_info["kanji_total"].should == 23
+      expect(level_info["current_level"]).to eq(25)
+      expect(level_info["radicals_progress"]).to eq(5)
+      expect(level_info["radicals_total"]).to eq(9)
+      expect(level_info["kanji_progress"]).to eq(10)
+      expect(level_info["kanji_total"]).to eq(23)
     end
   end
 
@@ -47,33 +45,33 @@ describe Wanikani::Level do
 
       it "returns an array of radicals for the specified level" do
         radicals = Wanikani::Level.radicals(1)
-        radicals.should be_an(Array)
-        radicals.size.should == 2
+        expect(radicals).to be_an(Array)
+        expect(radicals.size).to eq(2)
       end
 
       it "returns the information relating to the returned radicals" do
         radicals = Wanikani::Level.radicals(1)
         radical = radicals.first
-        radical["character"].should == "ト"
-        radical["meaning"].should == "toe"
-        radical["image"].should be_nil
-        radical["level"].should == 1
-        radical["stats"].should be_a(Hash)
+        expect(radical["character"]).to eq("ト")
+        expect(radical["meaning"]).to eq("toe")
+        expect(radical["image"]).to be_nil
+        expect(radical["level"]).to eq(1)
+        expect(radical["stats"]).to be_a(Hash)
 
         stats = radical["stats"]
-        stats["srs"].should == "burned"
-        stats["unlocked_date"].should == 1337820726
-        stats["available_date"].should == 1354754764
-        stats["burned"].should be_true
-        stats["burned_date"].should == 1354754764
-        stats["meaning_correct"].should == 8
-        stats["meaning_incorrect"].should == 0
-        stats["meaning_max_streak"].should == 8
-        stats["meaning_current_streak"].should == 8
-        stats["reading_correct"].should be_nil
-        stats["reading_incorrect"].should be_nil
-        stats["reading_max_streak"].should be_nil
-        stats["reading_current_streak"].should be_nil
+        expect(stats["srs"]).to eq("burned")
+        expect(stats["unlocked_date"]).to eq(1337820726)
+        expect(stats["available_date"]).to eq(1354754764)
+        expect(stats["burned"]).to be_truthy
+        expect(stats["burned_date"]).to eq(1354754764)
+        expect(stats["meaning_correct"]).to eq(8)
+        expect(stats["meaning_incorrect"]).to eq(0)
+        expect(stats["meaning_max_streak"]).to eq(8)
+        expect(stats["meaning_current_streak"]).to eq(8)
+        expect(stats["reading_correct"]).to be_nil
+        expect(stats["reading_incorrect"]).to be_nil
+        expect(stats["reading_max_streak"]).to be_nil
+        expect(stats["reading_current_streak"]).to be_nil
       end
     end
   end
@@ -104,35 +102,35 @@ describe Wanikani::Level do
 
       it "returns an array of kanji for the specified level" do
         kanji = Wanikani::Level.kanji(1)
-        kanji.should be_an(Array)
-        kanji.size.should == 2
+        expect(kanji).to be_an(Array)
+        expect(kanji.size).to eq(2)
       end
 
       it "returns the information relating to the returned kanji" do
         kanji = Wanikani::Level.kanji(1)
         kanji = kanji.first
-        kanji["character"].should == "一"
-        kanji["meaning"].should == "one"
-        kanji["onyomi"].should == "いち"
-        kanji["kunyomi"].should == "ひと.*"
-        kanji["important_reading"].should == "onyomi"
-        kanji["level"].should == 1
-        kanji["stats"].should be_a(Hash)
+        expect(kanji["character"]).to eq("一")
+        expect(kanji["meaning"]).to eq("one")
+        expect(kanji["onyomi"]).to eq("いち")
+        expect(kanji["kunyomi"]).to eq("ひと.*")
+        expect(kanji["important_reading"]).to eq("onyomi")
+        expect(kanji["level"]).to eq(1)
+        expect(kanji["stats"]).to be_a(Hash)
 
         stats = kanji["stats"]
-        stats["srs"].should == "enlighten"
-        stats["unlocked_date"].should == 1338820854
-        stats["available_date"].should == 1357346947
-        stats["burned"].should be_false
-        stats["burned_date"].should == 0
-        stats["meaning_correct"].should == 7
-        stats["meaning_incorrect"].should == 0
-        stats["meaning_max_streak"].should == 7
-        stats["meaning_current_streak"].should == 7
-        stats["reading_correct"].should == 7
-        stats["reading_incorrect"].should == 0
-        stats["reading_max_streak"].should == 7
-        stats["reading_current_streak"].should == 7
+        expect(stats["srs"]).to eq("enlighten")
+        expect(stats["unlocked_date"]).to eq(1338820854)
+        expect(stats["available_date"]).to eq(1357346947)
+        expect(stats["burned"]).to be_falsey
+        expect(stats["burned_date"]).to eq(0)
+        expect(stats["meaning_correct"]).to eq(7)
+        expect(stats["meaning_incorrect"]).to eq(0)
+        expect(stats["meaning_max_streak"]).to eq(7)
+        expect(stats["meaning_current_streak"]).to eq(7)
+        expect(stats["reading_correct"]).to eq(7)
+        expect(stats["reading_incorrect"]).to eq(0)
+        expect(stats["reading_max_streak"]).to eq(7)
+        expect(stats["reading_current_streak"]).to eq(7)
       end
     end
   end
@@ -163,33 +161,33 @@ describe Wanikani::Level do
 
       it "returns an array of vocabulary for the specified level" do
         vocabulary = Wanikani::Level.vocabulary(1)
-        vocabulary.should be_an(Array)
-        vocabulary.size.should == 2
+        expect(vocabulary).to be_an(Array)
+        expect(vocabulary.size).to eq(2)
       end
 
       it "returns the information relating to the returned vocabulary" do
         vocabulary = Wanikani::Level.vocabulary(1)
         vocabulary = vocabulary.first
-        vocabulary["character"].should == "ふじ山"
-        vocabulary["kana"].should == "ふじさん"
-        vocabulary["meaning"].should == "mt fuji, mount fuji"
-        vocabulary["level"].should == 1
-        vocabulary["stats"].should be_a(Hash)
+        expect(vocabulary["character"]).to eq("ふじ山")
+        expect(vocabulary["kana"]).to eq("ふじさん")
+        expect(vocabulary["meaning"]).to eq("mt fuji, mount fuji")
+        expect(vocabulary["level"]).to eq(1)
+        expect(vocabulary["stats"]).to be_a(Hash)
 
         stats = vocabulary["stats"]
-        stats["srs"].should == "enlighten"
-        stats["unlocked_date"].should == 1342432965
-        stats["available_date"].should == 1358369044
-        stats["burned"].should be_false
-        stats["burned_date"].should == 0
-        stats["meaning_correct"].should == 7
-        stats["meaning_incorrect"].should == 0
-        stats["meaning_max_streak"].should == 7
-        stats["meaning_current_streak"].should == 7
-        stats["reading_correct"].should == 7
-        stats["reading_incorrect"].should == 0
-        stats["reading_max_streak"].should == 7
-        stats["reading_current_streak"].should == 7
+        expect(stats["srs"]).to eq("enlighten")
+        expect(stats["unlocked_date"]).to eq(1342432965)
+        expect(stats["available_date"]).to eq(1358369044)
+        expect(stats["burned"]).to be_falsey
+        expect(stats["burned_date"]).to eq(0)
+        expect(stats["meaning_correct"]).to eq(7)
+        expect(stats["meaning_incorrect"]).to eq(0)
+        expect(stats["meaning_max_streak"]).to eq(7)
+        expect(stats["meaning_current_streak"]).to eq(7)
+        expect(stats["reading_correct"]).to eq(7)
+        expect(stats["reading_incorrect"]).to eq(0)
+        expect(stats["reading_max_streak"]).to eq(7)
+        expect(stats["reading_current_streak"]).to eq(7)
       end
 
       it "returns an array when fetching vocabulary without specifying a level" do
@@ -198,7 +196,7 @@ describe Wanikani::Level do
                              :body => "spec/fixtures/vocabulary_all_levels.json")
 
         vocabulary = Wanikani::Level.vocabulary
-        vocabulary.should be_a(Array)
+        expect(vocabulary).to be_an(Array)
       end
     end
   end

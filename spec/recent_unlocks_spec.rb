@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani::RecentUnlocks do
+RSpec.describe Wanikani::RecentUnlocks do
   describe ".list" do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
@@ -28,40 +26,40 @@ describe Wanikani::RecentUnlocks do
 
       it "returns an array with hashes of the user's recent unlocks" do
         unlocks = Wanikani::RecentUnlocks.list(3)
-        unlocks.should be_an(Array)
-        unlocks.size.should == 3
+        expect(unlocks).to be_an(Array)
+        expect(unlocks.size).to eq(3)
       end
 
       it "returns the specific fields and the proper encoding for vocabulary items" do
         unlocks = Wanikani::RecentUnlocks.list(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "vocabulary" }
-        unlocked_item["character"].should == "首"
-        unlocked_item["kana"].should == "くび"
-        unlocked_item["meaning"].should == "neck"
-        unlocked_item["level"].should == 6
-        unlocked_item["unlocked_date"].should == 1355879555
+        expect(unlocked_item["character"]).to eq("首")
+        expect(unlocked_item["kana"]).to eq("くび")
+        expect(unlocked_item["meaning"]).to eq("neck")
+        expect(unlocked_item["level"]).to eq(6)
+        expect(unlocked_item["unlocked_date"]).to eq(1355879555)
       end
 
       it "returns the specific fields and the proper encoding for Kanji items" do
         unlocks = Wanikani::RecentUnlocks.list(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "kanji" }
-        unlocked_item["character"].should == "辺"
-        unlocked_item["meaning"].should == "area"
-        unlocked_item["onyomi"].should == "へん"
-        unlocked_item["kunyomi"].should == "あたり"
-        unlocked_item["important_reading"].should == "onyomi"
-        unlocked_item["level"].should == 7
-        unlocked_item["unlocked_date"].should == 1355762469
+        expect(unlocked_item["character"]).to eq("辺")
+        expect(unlocked_item["meaning"]).to eq("area")
+        expect(unlocked_item["onyomi"]).to eq("へん")
+        expect(unlocked_item["kunyomi"]).to eq("あたり")
+        expect(unlocked_item["important_reading"]).to eq("onyomi")
+        expect(unlocked_item["level"]).to eq(7)
+        expect(unlocked_item["unlocked_date"]).to eq(1355762469)
       end
 
       it "returns the specific fields and the proper encoding for radical items" do
         unlocks = Wanikani::RecentUnlocks.list(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "radical" }
-        unlocked_item["character"].should == "鳥"
-        unlocked_item["meaning"].should == "bird"
-        unlocked_item["image"].should be_nil
-        unlocked_item["level"].should == 7
-        unlocked_item["unlocked_date"].should == 1355759947
+        expect(unlocked_item["character"]).to eq("鳥")
+        expect(unlocked_item["meaning"]).to eq("bird")
+        expect(unlocked_item["image"]).to be_nil
+        expect(unlocked_item["level"]).to eq(7)
+        expect(unlocked_item["unlocked_date"]).to eq(1355759947)
       end
     end
   end
@@ -92,7 +90,7 @@ describe Wanikani::RecentUnlocks do
 
       it "only returns the radicals from the list of recent unlocks" do
         radicals = Wanikani::RecentUnlocks.radicals(3)
-        radicals.size.should == 1
+        expect(radicals.size).to eq(1)
       end
     end
   end
@@ -123,7 +121,7 @@ describe Wanikani::RecentUnlocks do
 
       it "only returns the vocabulary from the list of recent unlocks" do
         vocabulary = Wanikani::RecentUnlocks.vocabulary(3)
-        vocabulary.size.should == 1
+        expect(vocabulary.size).to eq(1)
       end
     end
   end
@@ -154,7 +152,7 @@ describe Wanikani::RecentUnlocks do
 
       it "only returns the Kanji from the list of recent unlocks" do
         kanji = Wanikani::RecentUnlocks.kanji(3)
-        kanji.size.should == 1
+        expect(kanji.size).to eq(1)
       end
     end
   end

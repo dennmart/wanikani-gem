@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rest-client", "~> 1.7"
   s.add_runtime_dependency "multi_json", "~> 1.10"
 
-  s.add_development_dependency "rspec", "~> 2.14"
+  s.add_development_dependency "rspec", "~> 3.1"
   s.add_development_dependency "fakeweb", "~> 1.3"
 end

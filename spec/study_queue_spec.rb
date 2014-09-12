@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani::StudyQueue do
+RSpec.describe Wanikani::StudyQueue do
   describe ".queue" do
     before(:each) do
       FakeWeb.register_uri(:get,
@@ -11,11 +9,11 @@ describe Wanikani::StudyQueue do
 
     it "returns the user's study queue information" do
       queue = Wanikani::StudyQueue.queue
-      queue["lessons_available"].should == 77
-      queue["reviews_available"].should == 5
-      queue["next_review_date"].should == 1355893492
-      queue["reviews_available_next_hour"].should == 6
-      queue["reviews_available_next_day"].should == 24
+      expect(queue["lessons_available"]).to eq(77)
+      expect(queue["reviews_available"]).to eq(5)
+      expect(queue["next_review_date"]).to eq(1355893492)
+      expect(queue["reviews_available_next_hour"]).to eq(6)
+      expect(queue["reviews_available_next_day"]).to eq(24)
     end
   end
 
@@ -25,7 +23,7 @@ describe Wanikani::StudyQueue do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/study-queue/",
                            :body => "spec/fixtures/study-queue.json")
 
-      Wanikani::StudyQueue.lessons_available?.should be_true
+      expect(Wanikani::StudyQueue.lessons_available?).to be_truthy
     end
 
     it "returns false if there are no lessons available" do
@@ -33,7 +31,7 @@ describe Wanikani::StudyQueue do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/study-queue/",
                            :body => "spec/fixtures/study-queue-empty.json")
 
-      Wanikani::StudyQueue.lessons_available?.should be_false
+      expect(Wanikani::StudyQueue.lessons_available?).to be_falsey
     end
   end
 
@@ -43,7 +41,7 @@ describe Wanikani::StudyQueue do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/study-queue/",
                            :body => "spec/fixtures/study-queue.json")
 
-      Wanikani::StudyQueue.reviews_available?.should be_true
+      expect(Wanikani::StudyQueue.reviews_available?).to be_truthy
     end
 
     it "returns false if there are no reviews available" do
@@ -51,7 +49,7 @@ describe Wanikani::StudyQueue do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/study-queue/",
                            :body => "spec/fixtures/study-queue-empty.json")
 
-      Wanikani::StudyQueue.reviews_available?.should be_false
+      expect(Wanikani::StudyQueue.reviews_available?).to be_falsey
     end
   end
 end

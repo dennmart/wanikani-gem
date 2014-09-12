@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani::User do
+RSpec.describe Wanikani::User do
   describe ".information" do
     before(:each) do
       FakeWeb.register_uri(:get,
@@ -11,18 +9,18 @@ describe Wanikani::User do
 
     it "returns a hash with the Wanikani account information" do
       user_info = Wanikani::User.information
-      user_info.should be_a(Hash)
+      expect(user_info).to be_a(Hash)
 
-      user_info["username"].should == "crabigator"
-      user_info["gravatar"].should == "gravatarkey"
-      user_info["level"].should == 25
-      user_info["title"].should == "Turtles"
-      user_info["about"].should == "I am the almighty crabigator!"
-      user_info["website"].should == "http://www.wanikani.com/"
-      user_info["twitter"].should == "WaniKaniApp"
-      user_info["topics_count"].should == 1000
-      user_info["posts_count"].should == 500
-      user_info["creation_date"].should == 1337820000
+      expect(user_info["username"]).to eq("crabigator")
+      expect(user_info["gravatar"]).to eq("gravatarkey")
+      expect(user_info["level"]).to eq(25)
+      expect(user_info["title"]).to eq("Turtles")
+      expect(user_info["about"]).to eq("I am the almighty crabigator!")
+      expect(user_info["website"]).to eq("http://www.wanikani.com/")
+      expect(user_info["twitter"]).to eq("WaniKaniApp")
+      expect(user_info["topics_count"]).to eq(1000)
+      expect(user_info["posts_count"]).to eq(500)
+      expect(user_info["creation_date"]).to eq(1337820000)
     end
   end
 
@@ -32,7 +30,7 @@ describe Wanikani::User do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                            :body => "spec/fixtures/user-information.json")
 
-      Wanikani::User.on_vacation?.should be_false
+      expect(Wanikani::User.on_vacation?).to be_falsey
     end
 
     it "returns true if the vacation_date field is not null" do
@@ -40,7 +38,7 @@ describe Wanikani::User do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                            :body => "spec/fixtures/user-on-vacation.json")
 
-      Wanikani::User.on_vacation?.should be_true
+      expect(Wanikani::User.on_vacation?).to be_truthy
     end
   end
 
@@ -62,29 +60,29 @@ describe Wanikani::User do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                            :body => "spec/fixtures/user-information-no-gravatar.json")
 
-      Wanikani::User.gravatar_url.should be_nil
+      expect(Wanikani::User.gravatar_url).to be_nil
     end
 
     it "returns the secure Gravatar URL using the Gravatar hash for the user if the :secure option is set" do
       gravatar_url = Wanikani::User.gravatar_url(secure: true)
-      gravatar_url.should match /https:\/\/secure\.gravatar\.com/
-      gravatar_url.should match /gravatarkey/
+      expect(gravatar_url).to match(/https:\/\/secure\.gravatar\.com/)
+      expect(gravatar_url).to match(/gravatarkey/)
     end
 
     it "returns the non-secure Gratavar URL using the Gravatar hash for the user if the :secure option is not set" do
       gravatar_url = Wanikani::User.gravatar_url
-      gravatar_url.should match /http:\/\/www\.gravatar\.com/
-      gravatar_url.should match /gravatarkey/
+      expect(gravatar_url).to match(/http:\/\/www\.gravatar\.com/)
+      expect(gravatar_url).to match(/gravatarkey/)
     end
 
     it "sets the 'mm' URL parameter for a default image" do
       gravatar_url = Wanikani::User.gravatar_url
-      gravatar_url.should match /d=mm/
+      expect(gravatar_url).to match(/d=mm/)
     end
 
     it "sets the 'size' URL parameter if specified" do
       gravatar_url = Wanikani::User.gravatar_url(size: 250)
-      gravatar_url.should match /size=250/
+      expect(gravatar_url).to match(/size=250/)
     end
   end
 end

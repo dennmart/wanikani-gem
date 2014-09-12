@@ -1,11 +1,9 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani do
+RSpec.describe Wanikani do
   describe "API key accessors" do
     it "sets and gets the API key" do
       Wanikani.api_key = "testing-wanikani-api-key"
-      Wanikani.api_key.should == "testing-wanikani-api-key"
+      expect(Wanikani.api_key).to eq("testing-wanikani-api-key")
     end
   end
 
@@ -37,7 +35,8 @@ describe Wanikani do
     end
 
     it "calls the Wanikani API endpoint with the resource parameter" do
-      RestClient.should_receive(:get).with("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/resource/").and_return("{}")
+      allow(RestClient).to receive(:get).and_return("{}")
+      expect(RestClient).to receive(:get).with("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/resource/")
       Wanikani.api_response("resource")
     end
 
@@ -56,9 +55,10 @@ describe Wanikani do
                            "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                            :body => "spec/fixtures/user-information.json")
 
-      MultiJson.should_receive(:load).with(File.read("spec/fixtures/user-information.json")).and_call_original
+      #MultiJson.should_receive(:load).with(File.read("spec/fixtures/user-information.json")).and_call_original
+      expect(MultiJson).to receive(:load).with(File.read("spec/fixtures/user-information.json")).and_call_original
       api_response = Wanikani.api_response("user-information")
-      api_response.should be_a(Hash)
+      expect(api_response).to be_a(Hash)
     end
   end
 
@@ -69,51 +69,51 @@ describe Wanikani do
       end
 
       it "returns false if the parameter is nil" do
-        Wanikani.valid_api_key?(nil).should be_false
+        expect(Wanikani.valid_api_key?(nil)).to be_falsey
       end
 
       it "returns false if the parameter is an emptry string" do
-        Wanikani.valid_api_key?("").should be_false
+        expect(Wanikani.valid_api_key?("")).to be_falsey
       end
 
       it "returns false if the API call to WaniKani contains an error" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/invalid-api-key/user-information/",
                              :body => "spec/fixtures/error.json")
-        Wanikani.valid_api_key?("invalid-api-key").should be_false
+        expect(Wanikani.valid_api_key?("invalid-api-key")).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/valid-api-key/user-information/",
                              :body => "spec/fixtures/user-information.json")
-        Wanikani.valid_api_key?("valid-api-key").should be_true
+        expect(Wanikani.valid_api_key?("valid-api-key")).to be_truthy
       end
     end
 
     context "without specifying parameter" do
       it "returns false if Wanikani.api_key is nil" do
         Wanikani.api_key = nil
-        Wanikani.valid_api_key?.should be_false
+        expect(Wanikani.valid_api_key?).to be_falsey
       end
 
       it "returns false if Wanikani.api_key is an empty string" do
         Wanikani.api_key = ""
-        Wanikani.valid_api_key?.should be_false
+        expect(Wanikani.valid_api_key?).to be_falsey
       end
 
       it "returns false if the API call to WaniKani contains an error" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                              :body => "spec/fixtures/error.json")
-        Wanikani.valid_api_key?.should be_false
+        expect(Wanikani.valid_api_key?).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
         FakeWeb.register_uri(:get,
                              "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
                              :body => "spec/fixtures/user-information.json")
-        Wanikani.valid_api_key?.should be_true
+        expect(Wanikani.valid_api_key?).to be_truthy
       end
     end
   end

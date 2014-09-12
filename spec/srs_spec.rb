@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'spec_helper'
-
-describe Wanikani::SRS do
+RSpec.describe Wanikani::SRS do
   describe ".distribution" do
     let(:srs_types) { Wanikani::SRS::ITEM_TYPES.reject!{ |type| type == "all" } }
 
@@ -19,19 +17,19 @@ describe Wanikani::SRS do
 
     it "returns a hash with all SRS information if no parameters are passed" do
       srs = Wanikani::SRS.distribution
-      srs.should be_a(Hash)
+      expect(srs).to be_a(Hash)
 
       srs_types.each do |type|
-        srs.keys.should include(type)
+        expect(srs.keys).to include(type)
       end
     end
 
     it "only returns the information of a specified type if sent as a parameter" do
       srs = Wanikani::SRS.distribution("apprentice")
-      srs["radicals"].should == 1
-      srs["kanji"].should == 4
-      srs["vocabulary"].should == 12
-      srs["total"].should == 17
+      expect(srs["radicals"]).to eq(1)
+      expect(srs["kanji"]).to eq(4)
+      expect(srs["vocabulary"]).to eq(12)
+      expect(srs["total"]).to eq(17)
     end
   end
 
@@ -62,21 +60,21 @@ describe Wanikani::SRS do
     end
 
     it "returns all items matching the specific argument" do
-      Wanikani::SRS.items_by_type("burned").size.should == 3
-      Wanikani::SRS.items_by_type("enlighten").size.should == 1
-      Wanikani::SRS.items_by_type("master").size.should == 0
-      Wanikani::SRS.items_by_type("guru").size.should == 1
-      Wanikani::SRS.items_by_type("apprentice").size.should == 1
+      expect(Wanikani::SRS.items_by_type("burned").size).to eq(3)
+      expect(Wanikani::SRS.items_by_type("enlighten").size).to eq(1)
+      expect(Wanikani::SRS.items_by_type("master").size).to eq(0)
+      expect(Wanikani::SRS.items_by_type("guru").size).to eq(1)
+      expect(Wanikani::SRS.items_by_type("apprentice").size).to eq(1)
     end
 
     it "includes the type of the item (radical, kanji or vocabulary) in the returned items" do
       apprentice_item = Wanikani::SRS.items_by_type("apprentice").first
-      apprentice_item["type"].should == "kanji"
+      expect(apprentice_item["type"]).to eq("kanji")
     end
 
     it "uses 'radical' instead of 'radicals' as the type of the item" do
       enlightened_item = Wanikani::SRS.items_by_type("enlighten").first
-      enlightened_item["type"].should == "radical"
+      expect(enlightened_item["type"]).to eq("radical")
     end
   end
 end
