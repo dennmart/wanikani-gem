@@ -2,9 +2,8 @@
 RSpec.describe Wanikani::User do
   describe ".information" do
     before(:each) do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
-                           :body => "spec/fixtures/user-information.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-information.json"))
     end
 
     it "returns a hash with the Wanikani account information" do
@@ -26,17 +25,15 @@ RSpec.describe Wanikani::User do
 
   describe ".on_vacation?" do
     it "returns false if the vacation_date field is null" do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
-                           :body => "spec/fixtures/user-information.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-information.json"))
 
       expect(Wanikani::User.on_vacation?).to be_falsey
     end
 
     it "returns true if the vacation_date field is not null" do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
-                           :body => "spec/fixtures/user-on-vacation.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-on-vacation.json"))
 
       expect(Wanikani::User.on_vacation?).to be_truthy
     end
@@ -44,9 +41,8 @@ RSpec.describe Wanikani::User do
 
   describe ".gravatar_url" do
     before(:each) do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
-                           :body => "spec/fixtures/user-information.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-information.json"))
     end
 
     it "raises an ArgumentError if the size parameter is not an integer" do
@@ -56,9 +52,8 @@ RSpec.describe Wanikani::User do
     end
 
     it "returns nil if the Gravatar hash for the user is nil" do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/",
-                           :body => "spec/fixtures/user-information-no-gravatar.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-information-no-gravatar.json"))
 
       expect(Wanikani::User.gravatar_url).to be_nil
     end

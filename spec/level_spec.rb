@@ -2,9 +2,8 @@
 RSpec.describe Wanikani::Level do
   describe ".progression" do
     before(:each) do
-      FakeWeb.register_uri(:get,
-                           "http://www.wanikani.com/api/user/WANIKANI-API-KEY/level-progression/",
-                           :body => "spec/fixtures/level-progression.json")
+      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/level-progression/").
+         to_return(body: File.new("spec/fixtures/level-progression.json"))
     end
 
     it "returns a hash with the user's level progression" do
@@ -22,25 +21,24 @@ RSpec.describe Wanikani::Level do
   describe ".radicals" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1",
-                             :body => "spec/fixtures/radicals.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1").
+           to_return(body: File.new("spec/fixtures/radicals.json"))
+
         Wanikani::Level.radicals(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/2,5,10,25",
-                             :body => "spec/fixtures/radicals.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/2,5,10,25").
+           to_return(body: File.new("spec/fixtures/radicals.json"))
+
         Wanikani::Level.radicals([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1",
-                             :body => "spec/fixtures/radicals.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1").
+           to_return(body: File.new("spec/fixtures/radicals.json"))
       end
 
       it "returns an array of radicals for the specified level" do
@@ -79,25 +77,24 @@ RSpec.describe Wanikani::Level do
   describe ".kanji" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1",
-                             :body => "spec/fixtures/kanji.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1").
+           to_return(body: File.new("spec/fixtures/kanji.json"))
+
         Wanikani::Level.kanji(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/2,5,10,25",
-                             :body => "spec/fixtures/kanji.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/2,5,10,25").
+           to_return(body: File.new("spec/fixtures/kanji.json"))
+
         Wanikani::Level.kanji([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1",
-                             :body => "spec/fixtures/kanji.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1").
+           to_return(body: File.new("spec/fixtures/kanji.json"))
       end
 
       it "returns an array of kanji for the specified level" do
@@ -138,25 +135,24 @@ RSpec.describe Wanikani::Level do
   describe ".vocabulary" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1",
-                             :body => "spec/fixtures/vocabulary.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1").
+           to_return(body: File.new("spec/fixtures/vocabulary.json"))
+
         Wanikani::Level.vocabulary(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/2,5,10,25",
-                             :body => "spec/fixtures/vocabulary.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/2,5,10,25").
+           to_return(body: File.new("spec/fixtures/vocabulary.json"))
+
         Wanikani::Level.vocabulary([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1",
-                             :body => "spec/fixtures/vocabulary.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1").
+           to_return(body: File.new("spec/fixtures/vocabulary.json"))
       end
 
       it "returns an array of vocabulary for the specified level" do
@@ -191,9 +187,8 @@ RSpec.describe Wanikani::Level do
       end
 
       it "returns an array when fetching vocabulary without specifying a level" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/",
-                             :body => "spec/fixtures/vocabulary_all_levels.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/").
+           to_return(body: File.new("spec/fixtures/vocabulary_all_levels.json"))
 
         vocabulary = Wanikani::Level.vocabulary
         expect(vocabulary).to be_an(Array)

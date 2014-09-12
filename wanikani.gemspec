@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "multi_json", "~> 1.10"
 
   s.add_development_dependency "rspec", "~> 3.1"
-  s.add_development_dependency "fakeweb", "~> 1.3"
+  s.add_development_dependency "webmock", "~> 1.18"
 end

@@ -3,25 +3,22 @@ RSpec.describe Wanikani::RecentUnlocks do
   describe ".list" do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.list
       end
 
       it "uses the specified limit parameter" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.list(3)
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
       end
 
       it "returns an array with hashes of the user's recent unlocks" do
@@ -67,25 +64,22 @@ RSpec.describe Wanikani::RecentUnlocks do
   describe ".radicals" do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.radicals
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.radicals(3)
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
       end
 
       it "only returns the radicals from the list of recent unlocks" do
@@ -98,25 +92,22 @@ RSpec.describe Wanikani::RecentUnlocks do
   describe ".vocabulary" do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.vocabulary
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.vocabulary(3)
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
       end
 
       it "only returns the vocabulary from the list of recent unlocks" do
@@ -129,25 +120,22 @@ RSpec.describe Wanikani::RecentUnlocks do
   describe ".kanji" do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.kanji
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
         Wanikani::RecentUnlocks.kanji(3)
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3",
-                             :body => "spec/fixtures/recent-unlocks.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
       end
 
       it "only returns the Kanji from the list of recent unlocks" do

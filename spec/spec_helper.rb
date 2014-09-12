@@ -1,5 +1,7 @@
-require 'fakeweb'
+require 'webmock/rspec'
 require 'wanikani'
+
+WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

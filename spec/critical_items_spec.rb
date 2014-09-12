@@ -9,25 +9,22 @@ RSpec.describe Wanikani::CriticalItems do
       end
 
       it "defaults the percentage parameter to 75" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/75",
-                             :body => "spec/fixtures/critical-items.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/75").
+           to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical
       end
 
       it "uses the specified percentage parameter" do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/50",
-                             :body => "spec/fixtures/critical-items.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/50").
+           to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical(50)
       end
     end
 
     context "API response" do
       before(:each) do
-        FakeWeb.register_uri(:get,
-                             "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/90",
-                             :body => "spec/fixtures/critical-items.json")
+        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/critical-items/90").
+           to_return(body: File.new("spec/fixtures/critical-items.json"))
       end
 
       it "returns an array with hash of the user's critical items under the specified percentage" do
