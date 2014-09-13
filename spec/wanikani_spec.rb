@@ -7,6 +7,24 @@ RSpec.describe Wanikani do
     end
   end
 
+  describe "API version accessors" do
+    it "sets the default API version if it's not set" do
+      Wanikani.api_version = nil
+      expect(Wanikani.api_version).to eq(Wanikani::DEFAULT_API_VERSION)
+    end
+
+    it "raises an ArgumentError if attempting to set an invalid API version" do
+      expect {
+        Wanikani.api_version = "invalid_api_version"
+      }.to raise_error(ArgumentError)
+    end
+
+    it "sets and gets the API version" do
+      Wanikani.api_version = "v1"
+      expect(Wanikani.api_version).to eq("v1")
+    end
+  end
+
   describe ".api_response" do
     it "raises an ArgumentError if the resource parameter is nil" do
       expect {

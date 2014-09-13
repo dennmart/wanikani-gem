@@ -15,6 +15,8 @@ Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
   API_ENDPOINT = "http://www.wanikani.com/api/user"
+  DEFAULT_API_VERSION = "v1.2"
+  VALID_API_VERSIONS = %w(v1 v1.1 v1.2)
 
   def self.api_key=(api_key)
     @api_key = api_key
@@ -22,6 +24,15 @@ module Wanikani
 
   def self.api_key
     @api_key
+  end
+
+  def self.api_version=(api_version)
+    raise ArgumentError, "API version should be one of the following: #{VALID_API_VERSIONS.join(', ')}." unless VALID_API_VERSIONS.include?(api_version) || api_version.nil?
+    @api_version = api_version
+  end
+
+  def self.api_version
+    @api_version ||= DEFAULT_API_VERSION
   end
 
   def self.api_response(resource, optional_arg = nil)
