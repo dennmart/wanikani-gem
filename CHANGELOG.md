@@ -1,5 +1,10 @@
 # WaniKani gem - Changelog
 
+### 1.0
+- Version 1.0!
+- Added `Wanikani.api_version` to be able to select a specific API version to use.
+- Use HTTPS for all API requests.
+
 ### 0.10
 
 - Added `Wanikani::SRS.items_by_type` to return all items for a specific SRS type.
