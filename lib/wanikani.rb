@@ -14,7 +14,7 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
-  API_ENDPOINT = "http://www.wanikani.com/api/user"
+  API_ENDPOINT = "http://www.wanikani.com/api"
   DEFAULT_API_VERSION = "v1.2"
   VALID_API_VERSIONS = %w(v1 v1.1 v1.2)
 
@@ -40,7 +40,7 @@ module Wanikani
     raise ArgumentError, "You must set your Wanikani API key before querying the API" if Wanikani.api_key.nil? || Wanikani.api_key.empty?
 
     begin
-      response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
+      response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
       parsed_response = MultiJson.load(response)
 
       if parsed_response.has_key?("error")
@@ -57,7 +57,7 @@ module Wanikani
     api_key ||= Wanikani.api_key
     return false if api_key.nil? || api_key.empty?
 
-    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{api_key}/user-information/")
+    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{api_key}/user-information/")
     !MultiJson.load(response).has_key?("error")
   end
 

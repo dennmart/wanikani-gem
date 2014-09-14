@@ -45,5 +45,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  config.before(:each) { Wanikani.api_key = "WANIKANI-API-KEY" }
+  config.before(:each) do
+    Wanikani.api_key = "WANIKANI-API-KEY"
+    Wanikani.api_version = nil
+  end
 end

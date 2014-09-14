@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::Level do
   describe ".progression" do
     before(:each) do
-      stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/level-progression/").
+      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/level-progression/").
          to_return(body: File.new("spec/fixtures/level-progression.json"))
     end
 
@@ -21,14 +21,14 @@ RSpec.describe Wanikani::Level do
   describe ".radicals" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/radicals/1").
            to_return(body: File.new("spec/fixtures/radicals.json"))
 
         Wanikani::Level.radicals(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/2,5,10,25").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/radicals/2,5,10,25").
            to_return(body: File.new("spec/fixtures/radicals.json"))
 
         Wanikani::Level.radicals([2, 5, 10, 25])
@@ -37,7 +37,7 @@ RSpec.describe Wanikani::Level do
 
     context "API response" do
       before(:each) do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/radicals/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/radicals/1").
            to_return(body: File.new("spec/fixtures/radicals.json"))
       end
 
@@ -77,14 +77,14 @@ RSpec.describe Wanikani::Level do
   describe ".kanji" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/kanji/1").
            to_return(body: File.new("spec/fixtures/kanji.json"))
 
         Wanikani::Level.kanji(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/2,5,10,25").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/kanji/2,5,10,25").
            to_return(body: File.new("spec/fixtures/kanji.json"))
 
         Wanikani::Level.kanji([2, 5, 10, 25])
@@ -93,7 +93,7 @@ RSpec.describe Wanikani::Level do
 
     context "API response" do
       before(:each) do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/kanji/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/kanji/1").
            to_return(body: File.new("spec/fixtures/kanji.json"))
       end
 
@@ -135,14 +135,14 @@ RSpec.describe Wanikani::Level do
   describe ".vocabulary" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/1").
            to_return(body: File.new("spec/fixtures/vocabulary.json"))
 
         Wanikani::Level.vocabulary(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/2,5,10,25").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/2,5,10,25").
            to_return(body: File.new("spec/fixtures/vocabulary.json"))
 
         Wanikani::Level.vocabulary([2, 5, 10, 25])
@@ -151,7 +151,7 @@ RSpec.describe Wanikani::Level do
 
     context "API response" do
       before(:each) do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/1").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/1").
            to_return(body: File.new("spec/fixtures/vocabulary.json"))
       end
 
@@ -187,7 +187,7 @@ RSpec.describe Wanikani::Level do
       end
 
       it "returns an array when fetching vocabulary without specifying a level" do
-        stub_request(:get, "http://www.wanikani.com/api/user/WANIKANI-API-KEY/vocabulary/").
+        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/").
            to_return(body: File.new("spec/fixtures/vocabulary_all_levels.json"))
 
         vocabulary = Wanikani::Level.vocabulary
