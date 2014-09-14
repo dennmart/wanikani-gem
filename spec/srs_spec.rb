@@ -4,7 +4,7 @@ RSpec.describe Wanikani::SRS do
     let(:srs_types) { Wanikani::SRS::ITEM_TYPES.reject!{ |type| type == "all" } }
 
     before(:each) do
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/srs-distribution/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/srs-distribution/").
          to_return(body: File.new("spec/fixtures/srs-distribution.json"))
     end
 
@@ -34,13 +34,13 @@ RSpec.describe Wanikani::SRS do
 
   describe ".items_by_type" do
     before(:each) do
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/radicals/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/radicals/").
          to_return(body: File.new("spec/fixtures/srs-radicals.json"))
 
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/kanji/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/kanji/").
          to_return(body: File.new("spec/fixtures/srs-kanji.json"))
 
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/vocabulary/").
          to_return(body: File.new("spec/fixtures/srs-vocabulary.json"))
     end
     it "raises an ArgumentError if the item_type parameter is not a valid item type" do

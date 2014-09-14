@@ -14,7 +14,7 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
-  API_ENDPOINT = "http://www.wanikani.com/api"
+  API_ENDPOINT = "https://www.wanikani.com/api"
   DEFAULT_API_VERSION = "v1.2"
   VALID_API_VERSIONS = %w(v1 v1.1 v1.2)
 

@@ -59,7 +59,7 @@ RSpec.describe Wanikani do
     end
 
     it "raises an exception if the API response contains the 'error' key" do
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
          to_return(body: File.new("spec/fixtures/error.json"))
 
       expect {
@@ -68,7 +68,7 @@ RSpec.describe Wanikani do
     end
 
     it "returns the JSON parsed as a Hash" do
-      stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
          to_return(body: File.new("spec/fixtures/user-information.json"))
 
       #MultiJson.should_receive(:load).with(File.read("spec/fixtures/user-information.json")).and_call_original
@@ -93,13 +93,13 @@ RSpec.describe Wanikani do
       end
 
       it "returns false if the API call to WaniKani contains an error" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/invalid-api-key/user-information/").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/invalid-api-key/user-information/").
            to_return(body: File.new("spec/fixtures/error.json"))
         expect(Wanikani.valid_api_key?("invalid-api-key")).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/valid-api-key/user-information/").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/valid-api-key/user-information/").
            to_return(body: File.new("spec/fixtures/user-information.json"))
         expect(Wanikani.valid_api_key?("valid-api-key")).to be_truthy
       end
@@ -117,13 +117,13 @@ RSpec.describe Wanikani do
       end
 
       it "returns false if the API call to WaniKani contains an error" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
            to_return(body: File.new("spec/fixtures/error.json"))
         expect(Wanikani.valid_api_key?).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
            to_return(body: File.new("spec/fixtures/user-information.json"))
         expect(Wanikani.valid_api_key?).to be_truthy
       end

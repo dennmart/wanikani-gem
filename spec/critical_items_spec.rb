@@ -9,13 +9,13 @@ RSpec.describe Wanikani::CriticalItems do
       end
 
       it "defaults the percentage parameter to 75" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/75").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/75").
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical
       end
 
       it "uses the specified percentage parameter" do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/50").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/50").
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical(50)
       end
@@ -23,7 +23,7 @@ RSpec.describe Wanikani::CriticalItems do
 
     context "API response" do
       before(:each) do
-        stub_request(:get, "http://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/90").
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/90").
            to_return(body: File.new("spec/fixtures/critical-items.json"))
       end
 
