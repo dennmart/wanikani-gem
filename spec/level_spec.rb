@@ -195,4 +195,15 @@ RSpec.describe Wanikani::Level do
       end
     end
   end
+
+  describe ".full_response" do
+    it "returns the full response with the user_information and requested_information keys" do
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/level-progression/").
+         to_return(body: File.new("spec/fixtures/level-progression.json"))
+
+      full_response = Wanikani::Level.full_response
+      expect(full_response).to have_key("user_information")
+      expect(full_response).to have_key("requested_information")
+    end
+  end
 end

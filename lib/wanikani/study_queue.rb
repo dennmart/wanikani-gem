@@ -22,5 +22,12 @@ module Wanikani
     def self.reviews_available?
       return !self.queue["reviews_available"].zero?
     end
+
+    # Gets the full response of the Study Queue API call.
+    #
+    # @return [Hash] Full response from the Study Queue API call.
+    def self.full_response
+      return Wanikani.api_response("study-queue")
+    end
   end
 end

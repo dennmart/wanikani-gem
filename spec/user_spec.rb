@@ -80,4 +80,15 @@ RSpec.describe Wanikani::User do
       expect(gravatar_url).to match(/size=250/)
     end
   end
+
+  describe ".full_response" do
+    it "returns the full response with the user_information and requested_information keys" do
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: File.new("spec/fixtures/user-information.json"))
+
+      full_response = Wanikani::User.full_response
+      expect(full_response).to have_key("user_information")
+      expect(full_response).to have_key("requested_information")
+    end
+  end
 end

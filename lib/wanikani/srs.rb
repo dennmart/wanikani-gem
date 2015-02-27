@@ -35,5 +35,12 @@ module Wanikani
 
       items_by_type.flatten
     end
+
+    # Gets the full response of the SRS Distribution API call.
+    #
+    # @return [Hash] Full response from the SRS Distribution API call.
+    def self.full_response
+      return Wanikani.api_response("srs-distribution")
+    end
   end
 end

@@ -144,4 +144,31 @@ RSpec.describe Wanikani::RecentUnlocks do
       end
     end
   end
+
+  describe ".full_response" do
+    context "limit parameter" do
+      it "defaults the limit parameter to 10 items" do
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+        Wanikani::RecentUnlocks.full_response
+      end
+
+      it "uses the specified limit parameter" do
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/recent-unlocks/3").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+        Wanikani::RecentUnlocks.full_response(3)
+      end
+    end
+
+    context "API response" do
+      it "returns the full response with the user_information and requested_information keys" do
+        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/recent-unlocks/10").
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+
+        full_response = Wanikani::RecentUnlocks.full_response
+        expect(full_response).to have_key("user_information")
+        expect(full_response).to have_key("requested_information")
+      end
+    end
+  end
 end

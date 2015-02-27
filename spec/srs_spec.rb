@@ -73,4 +73,15 @@ RSpec.describe Wanikani::SRS do
       expect(enlightened_item["type"]).to eq("radical")
     end
   end
+
+  describe ".full_response" do
+    it "returns the full response with the user_information and requested_information keys" do
+      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/srs-distribution/").
+         to_return(body: File.new("spec/fixtures/srs-distribution.json"))
+
+      full_response = Wanikani::SRS.full_response
+      expect(full_response).to have_key("user_information")
+      expect(full_response).to have_key("requested_information")
+    end
+  end
 end

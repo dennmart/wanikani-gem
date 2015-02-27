@@ -10,6 +10,13 @@ module Wanikani
       return api_response["requested_information"].merge(current_level)
     end
 
+    # Gets the full response of the Level Progression API call.
+    #
+    # @return [Hash] Full response from the Level Progression API call.
+    def self.full_response
+      return Wanikani.api_response("level-progression")
+    end
+
     private
 
     def self.method_missing(name, *args)

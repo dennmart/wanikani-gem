@@ -10,6 +10,14 @@ module Wanikani
       return api_response["requested_information"]
     end
 
+    # Gets the full response of the Recents Unlocks List API call.
+    #
+    # @param [Integer] limit the total number of items returned.
+    # @return [Hash] Full response from the Recent Unlocks List API call.
+    def self.full_response(limit = 10)
+      return Wanikani.api_response("recent-unlocks", limit)
+    end
+
     private
 
     def self.method_missing(name, *args)

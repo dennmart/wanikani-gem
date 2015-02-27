@@ -33,6 +33,13 @@ module Wanikani
       return build_gravatar_url(hash, options)
     end
 
+    # Gets the full response of the User Information API call.
+    #
+    # @return [Hash] Full response from the User Information API call.
+    def self.full_response
+      return Wanikani.api_response("user-information")
+    end
+
     private
 
     def self.build_gravatar_url(hash, options)
