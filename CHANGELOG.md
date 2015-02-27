@@ -1,5 +1,8 @@
 # WaniKani gem - Changelog
 
+### 1.1
+- Added `full_response` method to available classes that returns a hash with the full response from the WaniKani API call.
+
 ### 1.0
 - Version 1.0!
 - Added `Wanikani.api_version` to be able to select a specific API version to use.
