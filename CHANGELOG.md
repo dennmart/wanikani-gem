@@ -1,5 +1,8 @@
 # WaniKani gem - Changelog
 
+### 1.2
+- Changed default API version to v1.3.
+
 ### 1.1
 - Added `full_response` method to available classes that returns a hash with the full response from the WaniKani API call.
 
