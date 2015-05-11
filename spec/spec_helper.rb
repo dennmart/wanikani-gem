@@ -50,3 +50,9 @@ RSpec.configure do |config|
     Wanikani.api_version = nil
   end
 end
+
+def wanikani_url(resource, optional_arg = nil)
+  raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
+  raise ArgumentError, "You must set your Wanikani API key before querying the API" if Wanikani.api_key.nil? || Wanikani.api_key.empty?
+  "#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}"
+end

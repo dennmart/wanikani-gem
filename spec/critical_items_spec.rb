@@ -9,13 +9,13 @@ RSpec.describe Wanikani::CriticalItems do
       end
 
       it "defaults the percentage parameter to 75" do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/75").
+        stub_request(:get, wanikani_url("critical-items", 75)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical
       end
 
       it "uses the specified percentage parameter" do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/50").
+        stub_request(:get, wanikani_url("critical-items", 50)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.critical(50)
       end
@@ -23,7 +23,7 @@ RSpec.describe Wanikani::CriticalItems do
 
     context "API response" do
       before(:each) do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/90").
+        stub_request(:get, wanikani_url("critical-items", 90)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
       end
 
@@ -70,13 +70,13 @@ RSpec.describe Wanikani::CriticalItems do
   describe ".full_response" do
     context "percentage parameter" do
       it "defaults the percentage parameter to 75" do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/75").
+        stub_request(:get, wanikani_url("critical-items", 75)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.full_response
       end
 
       it "uses the specified percentage parameter" do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/50").
+        stub_request(:get, wanikani_url("critical-items", 50)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
         Wanikani::CriticalItems.full_response(50)
       end
@@ -84,7 +84,7 @@ RSpec.describe Wanikani::CriticalItems do
 
     context "API response" do
       it "returns the full response with the user_information and requested_information keys" do
-        stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/critical-items/75").
+        stub_request(:get, wanikani_url("critical-items", 75)).
            to_return(body: File.new("spec/fixtures/critical-items.json"))
 
         full_response = Wanikani::CriticalItems.full_response

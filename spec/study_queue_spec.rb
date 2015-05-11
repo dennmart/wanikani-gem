@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::StudyQueue do
   describe ".queue" do
     before(:each) do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue.json"))
     end
 
@@ -18,14 +18,14 @@ RSpec.describe Wanikani::StudyQueue do
 
   describe ".lessons_available?" do
     it "returns true if there is at least one lesson available" do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue.json"))
 
       expect(Wanikani::StudyQueue.lessons_available?).to be_truthy
     end
 
     it "returns false if there are no lessons available" do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue-empty.json"))
 
       expect(Wanikani::StudyQueue.lessons_available?).to be_falsey
@@ -34,14 +34,14 @@ RSpec.describe Wanikani::StudyQueue do
 
   describe ".reviews_available?" do
     it "returns true if there is at least one review available" do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue.json"))
 
       expect(Wanikani::StudyQueue.reviews_available?).to be_truthy
     end
 
     it "returns false if there are no reviews available" do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue-empty.json"))
 
       expect(Wanikani::StudyQueue.reviews_available?).to be_falsey
@@ -50,7 +50,7 @@ RSpec.describe Wanikani::StudyQueue do
 
   describe ".full_response" do
     it "returns the full response with the user_information and requested_information keys" do
-      stub_request(:get, "https://www.wanikani.com/api/v1.2/user/WANIKANI-API-KEY/study-queue/").
+      stub_request(:get, wanikani_url("study-queue")).
          to_return(body: File.new("spec/fixtures/study-queue.json"))
 
       full_response = Wanikani::StudyQueue.full_response
