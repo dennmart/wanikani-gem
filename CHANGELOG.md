@@ -1,5 +1,9 @@
 # WaniKani gem - Changelog
 
+### 1.3
+- Changed default API version to v1.4.
+
+
 ### 1.2
 - Changed default API version to v1.3.
 
