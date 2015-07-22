@@ -17,7 +17,7 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     mime-types (2.6.1)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     netrc (0.10.3)
     rake (10.4.2)
     rest-client (1.8.0)
@@ -28,12 +28,12 @@ GEM
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
       rspec-mocks (~> 3.3.0)
-    rspec-core (3.3.1)
+    rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
-    rspec-expectations (3.3.0)
+    rspec-expectations (3.3.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-mocks (3.3.0)
+    rspec-mocks (3.3.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
@@ -55,4 +55,4 @@ DEPENDENCIES
   webmock (~> 1.2)
 
 BUNDLED WITH
-   1.10.3
+   1.10.5
