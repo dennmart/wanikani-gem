@@ -15,8 +15,8 @@ Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
   API_ENDPOINT = "https://www.wanikani.com/api"
-  DEFAULT_API_VERSION = "v1.3"
-  VALID_API_VERSIONS = %w(v1 v1.1 v1.2 v1.3)
+  DEFAULT_API_VERSION = "v1.4"
+  VALID_API_VERSIONS = %w(v1 v1.1 v1.2 v1.3 v1.4)
 
   def self.api_key=(api_key)
     @api_key = api_key
