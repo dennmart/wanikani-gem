@@ -37,7 +37,7 @@ Wanikani.valid_api_key?("ANOTHER_VALID_API_KEY")
   # => true
 ```
 
-By default, the gem uses the current API version (currently `v1.2`). You can use an older API version by specifying a valid API version:
+By default, the gem uses the current API version (currently `v1.4`). You can use an older API version by specifying a valid API version:
 
 ```ruby
 require 'wanikani'
