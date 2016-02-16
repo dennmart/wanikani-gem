@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-require 'rest_client'
-require 'multi_json'
+require 'faraday'
+require 'faraday_middleware'
 
 require 'wanikani/user'
 require 'wanikani/study_queue'
@@ -14,7 +14,7 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
-  API_ENDPOINT = "https://www.wanikani.com/api"
+  API_ENDPOINT = "https://www.wanikani.com"
   DEFAULT_API_VERSION = "v1.4"
   VALID_API_VERSIONS = %w(v1 v1.1 v1.2 v1.3 v1.4)
 
@@ -40,13 +40,12 @@ module Wanikani
     raise ArgumentError, "You must set your Wanikani API key before querying the API" if Wanikani.api_key.nil? || Wanikani.api_key.empty?
 
     begin
-      response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
-      parsed_response = MultiJson.load(response)
+      res = client.get("/api/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
 
-      if parsed_response.has_key?("error")
-        self.raise_exception(parsed_response["error"]["message"])
+      if res.body.has_key?("error")
+        self.raise_exception(res.body["error"]["message"])
       else
-        return parsed_response
+        return res.body
       end
     rescue => error
       self.raise_exception(error.message)
@@ -57,11 +56,18 @@ module Wanikani
     api_key ||= Wanikani.api_key
     return false if api_key.nil? || api_key.empty?
 
-    response = RestClient.get("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{api_key}/user-information/")
-    !MultiJson.load(response).has_key?("error")
+    res = client.get("/api/#{Wanikani.api_version}/user/#{api_key}/user-information")
+    !res.body.has_key?("error")
   end
 
   private
+
+  def self.client
+    Faraday.new(url: Wanikani::API_ENDPOINT) do |conn|
+      conn.response :json, :content_type => /\bjson$/
+      conn.adapter Faraday.default_adapter
+    end
+  end
 
   def self.raise_exception(message)
     raise Wanikani::Exception, "There was an error fetching the data from Wanikani (#{message})"

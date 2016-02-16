@@ -3,7 +3,7 @@ RSpec.describe Wanikani::StudyQueue do
   describe ".queue" do
     before(:each) do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue.json"))
+         to_return(body: File.new("spec/fixtures/study-queue.json"), headers: { "Content-Type" => "application/json" })
     end
 
     it "returns the user's study queue information" do
@@ -19,14 +19,14 @@ RSpec.describe Wanikani::StudyQueue do
   describe ".lessons_available?" do
     it "returns true if there is at least one lesson available" do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue.json"))
+         to_return(body: File.new("spec/fixtures/study-queue.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::StudyQueue.lessons_available?).to be_truthy
     end
 
     it "returns false if there are no lessons available" do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue-empty.json"))
+         to_return(body: File.new("spec/fixtures/study-queue-empty.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::StudyQueue.lessons_available?).to be_falsey
     end
@@ -35,14 +35,14 @@ RSpec.describe Wanikani::StudyQueue do
   describe ".reviews_available?" do
     it "returns true if there is at least one review available" do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue.json"))
+         to_return(body: File.new("spec/fixtures/study-queue.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::StudyQueue.reviews_available?).to be_truthy
     end
 
     it "returns false if there are no reviews available" do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue-empty.json"))
+         to_return(body: File.new("spec/fixtures/study-queue-empty.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::StudyQueue.reviews_available?).to be_falsey
     end
@@ -51,7 +51,7 @@ RSpec.describe Wanikani::StudyQueue do
   describe ".full_response" do
     it "returns the full response with the user_information and requested_information keys" do
       stub_request(:get, wanikani_url("study-queue")).
-         to_return(body: File.new("spec/fixtures/study-queue.json"))
+         to_return(body: File.new("spec/fixtures/study-queue.json"), headers: { "Content-Type" => "application/json" })
 
       full_response = Wanikani::StudyQueue.full_response
       expect(full_response).to have_key("user_information")

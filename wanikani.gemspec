@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.2'
 
-  s.add_runtime_dependency "rest-client", "~> 1.7"
-  s.add_runtime_dependency "multi_json", "~> 1.10"
+  s.add_runtime_dependency "faraday", "~> 0.9"
+  s.add_runtime_dependency "faraday_middleware", "~> 0.10"
 
   s.add_development_dependency "rspec", "~> 3.4"
   s.add_development_dependency "webmock", "~> 1.2"

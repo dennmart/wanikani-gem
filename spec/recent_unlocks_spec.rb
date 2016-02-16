@@ -4,13 +4,13 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.list
       end
 
       it "uses the specified limit parameter" do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.list(3)
       end
     end
@@ -18,7 +18,7 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "API response" do
       before(:each) do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array with hashes of the user's recent unlocks" do
@@ -65,13 +65,13 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.radicals
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.radicals(3)
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "API response" do
       before(:each) do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "only returns the radicals from the list of recent unlocks" do
@@ -93,13 +93,13 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.vocabulary
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.vocabulary(3)
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "API response" do
       before(:each) do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "only returns the vocabulary from the list of recent unlocks" do
@@ -121,13 +121,13 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "limit parameter" do
       it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.kanji
       end
 
       it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.kanji(3)
       end
     end
@@ -135,7 +135,7 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "API response" do
       before(:each) do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "only returns the Kanji from the list of recent unlocks" do
@@ -149,13 +149,13 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.full_response
       end
 
       it "uses the specified limit parameter" do
         stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::RecentUnlocks.full_response(3)
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe Wanikani::RecentUnlocks do
     context "API response" do
       it "returns the full response with the user_information and requested_information keys" do
         stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"))
+           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
 
         full_response = Wanikani::RecentUnlocks.full_response
         expect(full_response).to have_key("user_information")

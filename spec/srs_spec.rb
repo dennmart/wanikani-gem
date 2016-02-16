@@ -5,7 +5,7 @@ RSpec.describe Wanikani::SRS do
 
     before(:each) do
       stub_request(:get, wanikani_url("srs-distribution")).
-         to_return(body: File.new("spec/fixtures/srs-distribution.json"))
+         to_return(body: File.new("spec/fixtures/srs-distribution.json"), headers: { "Content-Type" => "application/json"   })
     end
 
     it "raises an ArgumentError if the item_type parameter is not a valid item type" do
@@ -35,13 +35,13 @@ RSpec.describe Wanikani::SRS do
   describe ".items_by_type" do
     before(:each) do
       stub_request(:get, wanikani_url("radicals")).
-         to_return(body: File.new("spec/fixtures/srs-radicals.json"))
+         to_return(body: File.new("spec/fixtures/srs-radicals.json"), headers: { "Content-Type" => "application/json"   })
 
       stub_request(:get, wanikani_url("kanji")).
-         to_return(body: File.new("spec/fixtures/srs-kanji.json"))
+         to_return(body: File.new("spec/fixtures/srs-kanji.json"), headers: { "Content-Type" => "application/json"   })
 
       stub_request(:get, wanikani_url("vocabulary")).
-         to_return(body: File.new("spec/fixtures/srs-vocabulary.json"))
+         to_return(body: File.new("spec/fixtures/srs-vocabulary.json"), headers: { "Content-Type" => "application/json"   })
     end
     it "raises an ArgumentError if the item_type parameter is not a valid item type" do
       expect {
@@ -77,7 +77,7 @@ RSpec.describe Wanikani::SRS do
   describe ".full_response" do
     it "returns the full response with the user_information and requested_information keys" do
       stub_request(:get, wanikani_url("srs-distribution")).
-         to_return(body: File.new("spec/fixtures/srs-distribution.json"))
+         to_return(body: File.new("spec/fixtures/srs-distribution.json"), headers: { "Content-Type" => "application/json"   })
 
       full_response = Wanikani::SRS.full_response
       expect(full_response).to have_key("user_information")

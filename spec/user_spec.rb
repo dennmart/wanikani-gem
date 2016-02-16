@@ -3,7 +3,7 @@ RSpec.describe Wanikani::User do
   describe ".information" do
     before(:each) do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-information.json"))
+         to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
     end
 
     it "returns a hash with the Wanikani account information" do
@@ -26,14 +26,14 @@ RSpec.describe Wanikani::User do
   describe ".on_vacation?" do
     it "returns false if the vacation_date field is null" do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-information.json"))
+         to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::User.on_vacation?).to be_falsey
     end
 
     it "returns true if the vacation_date field is not null" do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-on-vacation.json"))
+         to_return(body: File.new("spec/fixtures/user-on-vacation.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::User.on_vacation?).to be_truthy
     end
@@ -42,7 +42,7 @@ RSpec.describe Wanikani::User do
   describe ".gravatar_url" do
     before(:each) do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-information.json"))
+         to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
     end
 
     it "raises an ArgumentError if the size parameter is not an integer" do
@@ -53,7 +53,7 @@ RSpec.describe Wanikani::User do
 
     it "returns nil if the Gravatar hash for the user is nil" do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-information-no-gravatar.json"))
+         to_return(body: File.new("spec/fixtures/user-information-no-gravatar.json"), headers: { "Content-Type" => "application/json" })
 
       expect(Wanikani::User.gravatar_url).to be_nil
     end
@@ -84,7 +84,7 @@ RSpec.describe Wanikani::User do
   describe ".full_response" do
     it "returns the full response with the user_information and requested_information keys" do
       stub_request(:get, wanikani_url("user-information")).
-         to_return(body: File.new("spec/fixtures/user-information.json"))
+         to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
 
       full_response = Wanikani::User.full_response
       expect(full_response).to have_key("user_information")

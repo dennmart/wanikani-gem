@@ -10,13 +10,13 @@ RSpec.describe Wanikani::CriticalItems do
 
       it "defaults the percentage parameter to 75" do
         stub_request(:get, wanikani_url("critical-items", 75)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::CriticalItems.critical
       end
 
       it "uses the specified percentage parameter" do
         stub_request(:get, wanikani_url("critical-items", 50)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::CriticalItems.critical(50)
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Wanikani::CriticalItems do
     context "API response" do
       before(:each) do
         stub_request(:get, wanikani_url("critical-items", 90)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array with hash of the user's critical items under the specified percentage" do
@@ -71,13 +71,13 @@ RSpec.describe Wanikani::CriticalItems do
     context "percentage parameter" do
       it "defaults the percentage parameter to 75" do
         stub_request(:get, wanikani_url("critical-items", 75)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::CriticalItems.full_response
       end
 
       it "uses the specified percentage parameter" do
         stub_request(:get, wanikani_url("critical-items", 50)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
         Wanikani::CriticalItems.full_response(50)
       end
     end
@@ -85,7 +85,7 @@ RSpec.describe Wanikani::CriticalItems do
     context "API response" do
       it "returns the full response with the user_information and requested_information keys" do
         stub_request(:get, wanikani_url("critical-items", 75)).
-           to_return(body: File.new("spec/fixtures/critical-items.json"))
+           to_return(body: File.new("spec/fixtures/critical-items.json"), headers: { "Content-Type" => "application/json" })
 
         full_response = Wanikani::CriticalItems.full_response
         expect(full_response).to have_key("user_information")

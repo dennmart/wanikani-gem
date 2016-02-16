@@ -53,14 +53,21 @@ RSpec.describe Wanikani do
     end
 
     it "calls the Wanikani API endpoint with the resource parameter" do
-      allow(RestClient).to receive(:get).and_return("{}")
-      expect(RestClient).to receive(:get).with("#{Wanikani::API_ENDPOINT}/#{Wanikani.api_version}/user/#{Wanikani.api_key}/resource/")
+      stubs = Faraday::Adapter::Test::Stubs.new
+      faraday = Faraday.new do |builder|
+        builder.adapter :test, stubs do |stub|
+          stub.get("/api/#{Wanikani.api_version}/user/#{Wanikani.api_key}/resource/") { [200, {}, {}] }
+        end
+      end
+
+      allow(Faraday).to receive(:new).and_return(faraday)
       Wanikani.api_response("resource")
+      stubs.verify_stubbed_calls
     end
 
     it "raises an exception if the API response contains the 'error' key" do
       stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-         to_return(body: File.new("spec/fixtures/error.json"))
+         to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json"  })
 
       expect {
         Wanikani.api_response("user-information")
@@ -69,9 +76,8 @@ RSpec.describe Wanikani do
 
     it "returns the JSON parsed as a Hash" do
       stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-         to_return(body: File.new("spec/fixtures/user-information.json"))
+         to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json"  })
 
-      expect(MultiJson).to receive(:load).with(File.read("spec/fixtures/user-information.json")).and_call_original
       api_response = Wanikani.api_response("user-information")
       expect(api_response).to be_a(Hash)
     end
@@ -92,14 +98,14 @@ RSpec.describe Wanikani do
       end
 
       it "returns false if the API call to WaniKani contains an error" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/invalid-api-key/user-information/").
-           to_return(body: File.new("spec/fixtures/error.json"))
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/invalid-api-key/user-information").
+           to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json"  })
         expect(Wanikani.valid_api_key?("invalid-api-key")).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/valid-api-key/user-information/").
-           to_return(body: File.new("spec/fixtures/user-information.json"))
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/valid-api-key/user-information").
+           to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
         expect(Wanikani.valid_api_key?("valid-api-key")).to be_truthy
       end
     end
@@ -116,14 +122,14 @@ RSpec.describe Wanikani do
       end
 
       it "returns false if the API call to WaniKani contains an error" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-           to_return(body: File.new("spec/fixtures/error.json"))
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information").
+           to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json"  })
         expect(Wanikani.valid_api_key?).to be_falsey
       end
 
       it "returns false if the API call to WaniKani is valid" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-           to_return(body: File.new("spec/fixtures/user-information.json"))
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information").
+           to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json"  })
         expect(Wanikani.valid_api_key?).to be_truthy
       end
     end
