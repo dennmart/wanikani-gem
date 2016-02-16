@@ -1,5 +1,10 @@
 # WaniKani gem - Changelog
 
+### 1.4
+- All changes were to the underlying code - no functionality has been changed.
+- Switched HTTP library from RestClient to Faraday.
+- Updated any outdated gems used in the library (for runtime and development dependencies).
+
 ### 1.3
 - Changed default API version to v1.4.
 
