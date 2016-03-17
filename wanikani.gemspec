@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/dennmart/wanikani-gem"
   s.license     = "MIT"
 
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.add_runtime_dependency "faraday", "~> 0.9"
   s.add_runtime_dependency "faraday_middleware", "~> 0.10"
