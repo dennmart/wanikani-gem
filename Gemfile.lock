@@ -18,22 +18,22 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     hashdiff (0.3.0)
     multipart-post (2.0.0)
-    rake (11.1.2)
-    rspec (3.4.0)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.4)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
+    rake (11.2.2)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.2)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     safe_yaml (1.0.4)
-    webmock (2.0.2)
+    webmock (2.1.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -43,9 +43,9 @@ PLATFORMS
 
 DEPENDENCIES
   rake
-  rspec (~> 3.4)
+  rspec (~> 3.5)
   wanikani!
-  webmock (~> 2.0)
+  webmock (~> 2.1)
 
 BUNDLED WITH
-   1.12.3
+   1.12.5
