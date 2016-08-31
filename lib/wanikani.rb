@@ -42,7 +42,9 @@ module Wanikani
     begin
       res = client.get("/api/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
 
-      if res.body.has_key?("error")
+      if !res.success?
+        self.raise_exception("Status code: #{res.status}")
+      elsif res.body.has_key?("error")
         self.raise_exception(res.body["error"]["message"])
       else
         return res.body

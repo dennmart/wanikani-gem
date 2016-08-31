@@ -65,6 +65,15 @@ RSpec.describe Wanikani do
       stubs.verify_stubbed_calls
     end
 
+    it "raises an exception with the status code if the API response is an unsuccessful API call with a blank body" do
+      stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
+         to_return(body: "", status: 500)
+
+      expect {
+        Wanikani.api_response("user-information")
+      }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (Status code: 500)")
+    end
+
     it "raises an exception if the API response contains the 'error' key" do
       stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
          to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json"  })
