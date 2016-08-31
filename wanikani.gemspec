@@ -6,7 +6,6 @@ require 'wanikani/version'
 Gem::Specification.new do |s|
   s.name        = "wanikani"
   s.version     = Wanikani::VERSION
-  s.date        = "2016-02-16"
   s.summary     = "Add Japanese Kanji learning goodness to your Ruby projects!"
   s.description = "Use WaniKani's (https://www.wanikani.com/) API in your Ruby applications"
   s.authors     = ["Dennis Martinez"]

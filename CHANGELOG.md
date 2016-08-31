@@ -1,5 +1,8 @@
 # WaniKani gem - Changelog
 
+### 1.4.1
+- Handle errors when the WaniKani API returns an unsuccessful API response with a blank body.
+
 ### 1.4
 - All changes were to the underlying code - no functionality has been changed.
 - Switched HTTP library from RestClient to Faraday.
