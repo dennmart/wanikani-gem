@@ -1,5 +1,8 @@
 # WaniKani gem - Changelog
 
+### Unreleased
+- The wanikani gem now requires Ruby 2.0 and above.
+
 ### 1.4.1
 - Handle errors when the WaniKani API returns an unsuccessful API response with a blank body.
 
