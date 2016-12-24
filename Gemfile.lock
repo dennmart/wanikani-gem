@@ -13,14 +13,14 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
-    faraday (0.10.0)
+    faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
       faraday (>= 0.7.4, < 1.0)
-    hashdiff (0.3.0)
+    hashdiff (0.3.2)
     multipart-post (2.0.0)
-    public_suffix (2.0.4)
-    rake (11.3.0)
+    public_suffix (2.0.5)
+    rake (12.0.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -35,7 +35,7 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     safe_yaml (1.0.4)
-    webmock (2.1.0)
+    webmock (2.3.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -47,7 +47,7 @@ DEPENDENCIES
   rake
   rspec (~> 3.5)
   wanikani!
-  webmock (~> 2.1)
+  webmock (~> 2.3)
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "faraday_middleware", "~> 0.10"
 
   s.add_development_dependency "rspec", "~> 3.5"
-  s.add_development_dependency "webmock", "~> 2.1"
+  s.add_development_dependency "webmock", "~> 2.3"
 end
