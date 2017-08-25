@@ -224,6 +224,13 @@ Wanikani::Level.vocabulary([24, 25])
   # => [{"character"=>"後輩", "kana"=>"こうはい", "meaning"=>"junior, one's junior", "level"=>25, "stats"=>nil}, {"character"=>"年輩", "kana"=>"ねんぱい", "meaning"=>"elderly person, old person", "level"=>25, "stats"=>nil}, ...]
 ```
 
+## Handling API Request Exceptions
+
+The gem will handle API request exceptions with the following exception classes:
+
+- `Wanikani::InvalidKey`: The API response will return a 401 status code indicating that the API key used is not valid. The gem will throw this exception so you can catch errors where the API key is not valid.
+- `Wanikani::Exception`: Any API responses with a non-successful (20x) status code **or** with an `error` key in the body will throw this exception, including additional information on the status code (if not a 20x status code) or the message in the body (if the `error` key is present in the response).
+
 ## Contributing
 
 I'll be super-happy if you guys help giving back! If you want to do some hacking on the WaniKani gem, this is a good guideline to get started:

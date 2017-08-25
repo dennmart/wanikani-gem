@@ -42,15 +42,13 @@ module Wanikani
     begin
       res = client.get("/api/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}")
 
-      if !res.success?
-        self.raise_exception("Status code: #{res.status}")
-      elsif res.body.has_key?("error")
-        self.raise_exception(res.body["error"]["message"])
+      if !res.success? || res.body.has_key?("error")
+        self.raise_exception(res)
       else
         return res.body
       end
     rescue => error
-      self.raise_exception(error.message)
+      raise Exception, "There was an error: #{error.message}"
     end
   end
 
@@ -71,7 +69,14 @@ module Wanikani
     end
   end
 
-  def self.raise_exception(message)
+  def self.raise_exception(response)
+    raise Wanikani::InvalidKey, "The API key used for this request is invalid." and return if response.status == 401
+
+    message = if response.body.is_a?(Hash) and response.body.has_key?("error")
+                response.body["error"]["message"]
+              else
+                "Status code: #{response.status}"
+              end
     raise Wanikani::Exception, "There was an error fetching the data from Wanikani (#{message})"
   end
 end

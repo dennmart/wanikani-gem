@@ -65,30 +65,41 @@ RSpec.describe Wanikani do
       stubs.verify_stubbed_calls
     end
 
-    it "raises an exception with the status code if the API response is an unsuccessful API call with a blank body" do
-      stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-         to_return(body: "", status: 500)
-
-      expect {
-        Wanikani.api_response("user-information")
-      }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (Status code: 500)")
-    end
-
-    it "raises an exception if the API response contains the 'error' key" do
-      stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
-         to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json"  })
-
-      expect {
-        Wanikani.api_response("user-information")
-      }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (User does not exist.)")
-    end
-
     it "returns the JSON parsed as a Hash" do
       stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
          to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json"  })
 
       api_response = Wanikani.api_response("user-information")
       expect(api_response).to be_a(Hash)
+    end
+
+    context "exceptions" do
+      it "raises Wanikani::Exception with the status code if the API response is an unsuccessful API call with a blank body" do
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
+          to_return(body: "", status: 500)
+
+          expect {
+            Wanikani.api_response("user-information")
+          }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (Status code: 500)")
+      end
+
+      it "raises Wanikani::Exception if the API response contains the 'error' key" do
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
+          to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json" })
+
+          expect {
+            Wanikani.api_response("user-information")
+          }.to raise_error(Wanikani::Exception, "There was an error fetching the data from Wanikani (User does not exist.)")
+      end
+
+      it "raises a Wanikani::InvalidKey if the API response returns a 401 status" do
+        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani.api_version}/user/WANIKANI-API-KEY/user-information/").
+          to_return(body: File.new("spec/fixtures/error.json"), status: 401, headers: { "Content-Type" => "application/json" })
+
+          expect {
+            Wanikani.api_response("user-information")
+          }.to raise_error(Wanikani::InvalidKey, "The API key used for this request is invalid.")
+      end
     end
   end
 

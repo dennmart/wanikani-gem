@@ -2,6 +2,7 @@
 
 ### Unreleased
 - The wanikani gem now requires Ruby 2.0 and above.
+- Handle invalid API keys better by raising a `Wanikani::InvalidKey` exception.
 
 ### 1.4.1
 - Handle errors when the WaniKani API returns an unsuccessful API response with a blank body.
