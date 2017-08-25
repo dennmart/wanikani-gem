@@ -57,7 +57,9 @@ module Wanikani
     return false if api_key.nil? || api_key.empty?
 
     res = client.get("/api/#{Wanikani.api_version}/user/#{api_key}/user-information")
-    !res.body.has_key?("error")
+
+    return false if !res.success? || res.body.has_key?("error")
+    return true
   end
 
   private
