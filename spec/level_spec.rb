@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 RSpec.describe Wanikani::Level do
-  describe ".progression" do
+  let(:client) { Wanikani::Client.new(api_key: "my-api-key") }
+
+  describe "#level_progression" do
     before(:each) do
-      stub_request(:get, wanikani_url("level-progression")).
+      stub_request(:get, wanikani_url(client, "level-progression")).
          to_return(body: File.new("spec/fixtures/level-progression.json"), headers: { "Content-Type" => "application/json" })
     end
 
     it "returns a hash with the user's level progression" do
-      level_info = Wanikani::Level.progression
+      level_info = client.level_progression
       expect(level_info).to be_a(Hash)
 
       expect(level_info["current_level"]).to eq(25)
@@ -18,37 +20,37 @@ RSpec.describe Wanikani::Level do
     end
   end
 
-  describe ".radicals" do
+  describe "#radicals_list" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, wanikani_url("radicals", 1)).
+        stub_request(:get, wanikani_url(client, "radicals", 1)).
            to_return(body: File.new("spec/fixtures/radicals.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.radicals(1)
+        client.radicals_list(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, wanikani_url("radicals", "2,5,10,25")).
+        stub_request(:get, wanikani_url(client, "radicals", "2,5,10,25")).
            to_return(body: File.new("spec/fixtures/radicals.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.radicals([2, 5, 10, 25])
+        client.radicals_list([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        stub_request(:get, wanikani_url("radicals", 1)).
+        stub_request(:get, wanikani_url(client, "radicals", 1)).
            to_return(body: File.new("spec/fixtures/radicals.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array of radicals for the specified level" do
-        radicals = Wanikani::Level.radicals(1)
+        radicals = client.radicals_list(1)
         expect(radicals).to be_an(Array)
         expect(radicals.size).to eq(2)
       end
 
       it "returns the information relating to the returned radicals" do
-        radicals = Wanikani::Level.radicals(1)
+        radicals = client.radicals_list(1)
         radical = radicals.first
         expect(radical["character"]).to eq("ト")
         expect(radical["meaning"]).to eq("toe")
@@ -74,37 +76,37 @@ RSpec.describe Wanikani::Level do
     end
   end
 
-  describe ".kanji" do
+  describe "#kanji_list" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, wanikani_url("kanji", 1)).
+        stub_request(:get, wanikani_url(client, "kanji", 1)).
            to_return(body: File.new("spec/fixtures/kanji.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.kanji(1)
+        client.kanji_list(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, wanikani_url("kanji", "2,5,10,25")).
+        stub_request(:get, wanikani_url(client, "kanji", "2,5,10,25")).
            to_return(body: File.new("spec/fixtures/kanji.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.kanji([2, 5, 10, 25])
+        client.kanji_list([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        stub_request(:get, wanikani_url("kanji", 1)).
+        stub_request(:get, wanikani_url(client, "kanji", 1)).
            to_return(body: File.new("spec/fixtures/kanji.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array of kanji for the specified level" do
-        kanji = Wanikani::Level.kanji(1)
+        kanji = client.kanji_list(1)
         expect(kanji).to be_an(Array)
         expect(kanji.size).to eq(2)
       end
 
       it "returns the information relating to the returned kanji" do
-        kanji = Wanikani::Level.kanji(1)
+        kanji = client.kanji_list(1)
         kanji = kanji.first
         expect(kanji["character"]).to eq("一")
         expect(kanji["meaning"]).to eq("one")
@@ -132,37 +134,37 @@ RSpec.describe Wanikani::Level do
     end
   end
 
-  describe ".vocabulary" do
+  describe "#vocabulary_list" do
     context "levels parameter" do
       it "can accept an Integer as a single level" do
-        stub_request(:get, wanikani_url("vocabulary", 1)).
+        stub_request(:get, wanikani_url(client, "vocabulary", 1)).
            to_return(body: File.new("spec/fixtures/vocabulary.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.vocabulary(1)
+        client.vocabulary_list(1)
       end
 
       it "converts an array of Integers to a comma-separated string of levels" do
-        stub_request(:get, wanikani_url("vocabulary", "2,5,10,25")).
+        stub_request(:get, wanikani_url(client, "vocabulary", "2,5,10,25")).
            to_return(body: File.new("spec/fixtures/vocabulary.json"), headers: { "Content-Type" => "application/json" })
 
-        Wanikani::Level.vocabulary([2, 5, 10, 25])
+        client.vocabulary_list([2, 5, 10, 25])
       end
     end
 
     context "API response" do
       before(:each) do
-        stub_request(:get, wanikani_url("vocabulary", 1)).
+        stub_request(:get, wanikani_url(client, "vocabulary", 1)).
            to_return(body: File.new("spec/fixtures/vocabulary.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array of vocabulary for the specified level" do
-        vocabulary = Wanikani::Level.vocabulary(1)
+        vocabulary = client.vocabulary_list(1)
         expect(vocabulary).to be_an(Array)
         expect(vocabulary.size).to eq(2)
       end
 
       it "returns the information relating to the returned vocabulary" do
-        vocabulary = Wanikani::Level.vocabulary(1)
+        vocabulary = client.vocabulary_list(1)
         vocabulary = vocabulary.first
         expect(vocabulary["character"]).to eq("ふじ山")
         expect(vocabulary["kana"]).to eq("ふじさん")
@@ -187,21 +189,21 @@ RSpec.describe Wanikani::Level do
       end
 
       it "returns an array when fetching vocabulary without specifying a level" do
-        stub_request(:get, wanikani_url("vocabulary")).
+        stub_request(:get, wanikani_url(client, "vocabulary")).
            to_return(body: File.new("spec/fixtures/vocabulary_all_levels.json"), headers: { "Content-Type" => "application/json" })
 
-        vocabulary = Wanikani::Level.vocabulary
+        vocabulary = client.vocabulary_list
         expect(vocabulary).to be_an(Array)
       end
     end
   end
 
-  describe ".full_response" do
+  describe "#full_level_progression_response" do
     it "returns the full response with the user_information and requested_information keys" do
-      stub_request(:get, wanikani_url("level-progression")).
+      stub_request(:get, wanikani_url(client, "level-progression")).
          to_return(body: File.new("spec/fixtures/level-progression.json"), headers: { "Content-Type" => "application/json" })
 
-      full_response = Wanikani::Level.full_response
+      full_response = client.full_level_progression_response
       expect(full_response).to have_key("user_information")
       expect(full_response).to have_key("requested_information")
     end

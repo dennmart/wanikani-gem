@@ -44,15 +44,10 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
-
-  config.before(:each) do
-    Wanikani.api_key = "WANIKANI-API-KEY"
-    Wanikani.api_version = nil
-  end
 end
 
-def wanikani_url(resource, optional_arg = nil)
+def wanikani_url(client, resource, optional_arg = nil)
+  raise ArgumentError, "You must specify a Wanikani::Client instance" unless client.is_a?(Wanikani::Client)
   raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
-  raise ArgumentError, "You must set your Wanikani API key before querying the API" if Wanikani.api_key.nil? || Wanikani.api_key.empty?
-  "#{Wanikani::API_ENDPOINT}/api/#{Wanikani.api_version}/user/#{Wanikani.api_key}/#{resource}/#{optional_arg}"
+  "#{Wanikani::Client::API_ENDPOINT}/api/#{client.api_version}/user/#{client.api_key}/#{resource}/#{optional_arg}"
 end

@@ -1,34 +1,36 @@
 # -*- encoding : utf-8 -*-
 RSpec.describe Wanikani::RecentUnlocks do
-  describe ".list" do
+  let(:client) { Wanikani::Client.new(api_key: "my-api-key") }
+
+  describe "#recent_unlocks" do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 10)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.list
+        client.recent_unlocks
       end
 
       it "uses the specified limit parameter" do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 3)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.list(3)
+        client.recent_unlocks(3)
       end
     end
 
     context "API response" do
       before(:each) do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 3)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
       end
 
       it "returns an array with hashes of the user's recent unlocks" do
-        unlocks = Wanikani::RecentUnlocks.list(3)
+        unlocks = client.recent_unlocks(3)
         expect(unlocks).to be_an(Array)
         expect(unlocks.size).to eq(3)
       end
 
       it "returns the specific fields and the proper encoding for vocabulary items" do
-        unlocks = Wanikani::RecentUnlocks.list(3)
+        unlocks = client.recent_unlocks(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "vocabulary" }
         expect(unlocked_item["character"]).to eq("首")
         expect(unlocked_item["kana"]).to eq("くび")
@@ -38,7 +40,7 @@ RSpec.describe Wanikani::RecentUnlocks do
       end
 
       it "returns the specific fields and the proper encoding for Kanji items" do
-        unlocks = Wanikani::RecentUnlocks.list(3)
+        unlocks = client.recent_unlocks(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "kanji" }
         expect(unlocked_item["character"]).to eq("辺")
         expect(unlocked_item["meaning"]).to eq("area")
@@ -50,7 +52,7 @@ RSpec.describe Wanikani::RecentUnlocks do
       end
 
       it "returns the specific fields and the proper encoding for radical items" do
-        unlocks = Wanikani::RecentUnlocks.list(3)
+        unlocks = client.recent_unlocks(3)
         unlocked_item = unlocks.detect { |unlock| unlock["type"] == "radical" }
         expect(unlocked_item["character"]).to eq("鳥")
         expect(unlocked_item["meaning"]).to eq("bird")
@@ -58,114 +60,44 @@ RSpec.describe Wanikani::RecentUnlocks do
         expect(unlocked_item["level"]).to eq(7)
         expect(unlocked_item["unlocked_date"]).to eq(1355759947)
       end
-    end
-  end
 
-  describe ".radicals" do
-    context "limit parameter" do
-      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.radicals
-      end
-
-      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.radicals(3)
-      end
-    end
-
-    context "API response" do
-      before(:each) do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-      end
-
-      it "only returns the radicals from the list of recent unlocks" do
-        radicals = Wanikani::RecentUnlocks.radicals(3)
+      it "only returns specified item type from the list of recent unlocks if the type is specified" do
+        radicals = client.recent_unlocks(3, "radical")
         expect(radicals.size).to eq(1)
-      end
-    end
-  end
+        expect(radicals.first["type"]).to eq("radical")
 
-  describe ".vocabulary" do
-    context "limit parameter" do
-      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.vocabulary
-      end
-
-      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.vocabulary(3)
-      end
-    end
-
-    context "API response" do
-      before(:each) do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-      end
-
-      it "only returns the vocabulary from the list of recent unlocks" do
-        vocabulary = Wanikani::RecentUnlocks.vocabulary(3)
-        expect(vocabulary.size).to eq(1)
-      end
-    end
-  end
-
-  describe ".kanji" do
-    context "limit parameter" do
-      it "defaults the limit parameter for the entire 'recent-unlocks' list to 10 items" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.kanji
-      end
-
-      it "uses the specified limit parameter for the entire 'recent-unlocks' list" do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.kanji(3)
-      end
-    end
-
-    context "API response" do
-      before(:each) do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
-           to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-      end
-
-      it "only returns the Kanji from the list of recent unlocks" do
-        kanji = Wanikani::RecentUnlocks.kanji(3)
+        kanji = client.recent_unlocks(3, "kanji")
         expect(kanji.size).to eq(1)
+        expect(kanji.first["type"]).to eq("kanji")
+
+        vocabulary = client.recent_unlocks(3, "vocabulary")
+        expect(vocabulary.size).to eq(1)
+        expect(vocabulary.first["type"]).to eq("vocabulary")
       end
     end
   end
 
-  describe ".full_response" do
+  describe "#full_recent_unlocks_response" do
     context "limit parameter" do
       it "defaults the limit parameter to 10 items" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 10)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.full_response
+        client.full_recent_unlocks_response
       end
 
       it "uses the specified limit parameter" do
-        stub_request(:get, wanikani_url("recent-unlocks", 3)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 3)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
-        Wanikani::RecentUnlocks.full_response(3)
+        client.full_recent_unlocks_response(3)
       end
     end
 
     context "API response" do
       it "returns the full response with the user_information and requested_information keys" do
-        stub_request(:get, wanikani_url("recent-unlocks", 10)).
+        stub_request(:get, wanikani_url(client, "recent-unlocks", 10)).
            to_return(body: File.new("spec/fixtures/recent-unlocks.json"), headers: { "Content-Type" => "application/json" })
 
-        full_response = Wanikani::RecentUnlocks.full_response
+        full_response = client.full_recent_unlocks_response
         expect(full_response).to have_key("user_information")
         expect(full_response).to have_key("requested_information")
       end
