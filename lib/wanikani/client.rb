@@ -11,10 +11,6 @@ require 'wanikani/critical_items'
 
 module Wanikani
   class Client
-    API_ENDPOINT = "https://www.wanikani.com"
-    DEFAULT_API_VERSION = "v1.4"
-    VALID_API_VERSIONS = %w(v1 v1.1 v1.2 v1.3 v1.4)
-
     include Wanikani::User
     include Wanikani::StudyQueue
     include Wanikani::Level
@@ -26,10 +22,10 @@ module Wanikani
 
     def initialize(options = {})
       raise ArgumentError, "You must specify a WaniKani API key before querying the API." if options[:api_key].nil? || options[:api_key].empty?
-      raise ArgumentError, "API version should be one of the following: #{VALID_API_VERSIONS.join(', ')}." unless VALID_API_VERSIONS.include?(options[:api_version]) || options[:api_version].nil?
+      raise ArgumentError, "API version should be one of the following: #{Wanikani::VALID_API_VERSIONS.join(', ')}." unless Wanikani::VALID_API_VERSIONS.include?(options[:api_version]) || options[:api_version].nil?
 
       @api_key = options[:api_key]
-      @api_version = options[:api_version] ||= DEFAULT_API_VERSION
+      @api_version = options[:api_version] ||= Wanikani::DEFAULT_API_VERSION
     end
 
     def valid_api_key?(api_key = nil)
@@ -52,7 +48,7 @@ module Wanikani
     private
 
     def client
-      Faraday.new(url: API_ENDPOINT) do |conn|
+      Faraday.new(url: Wanikani::API_ENDPOINT) do |conn|
         conn.response :json, :content_type => /\bjson$/
         conn.adapter Faraday.default_adapter
       end

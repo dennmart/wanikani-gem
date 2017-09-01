@@ -49,5 +49,5 @@ end
 def wanikani_url(client, resource, optional_arg = nil)
   raise ArgumentError, "You must specify a Wanikani::Client instance" unless client.is_a?(Wanikani::Client)
   raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
-  "#{Wanikani::Client::API_ENDPOINT}/api/#{client.api_version}/user/#{client.api_key}/#{resource}/#{optional_arg}"
+  "#{Wanikani::API_ENDPOINT}/api/#{client.api_version}/user/#{client.api_key}/#{resource}/#{optional_arg}"
 end
