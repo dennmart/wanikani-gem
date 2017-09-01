@@ -1,5 +1,8 @@
 # WaniKani gem - Changelog
 
+### 2.0.0
+- **Breaking**: The wanikani gem was completely revamped to use a per-instance client. Please read the [documentation](https://github.com/dennmart/wanikani-gem) for more information.
+
 ### 1.5.0
 - The wanikani gem now requires Ruby 2.0 and above.
 - Handle invalid API keys better by raising a `Wanikani::InvalidKey` exception.
