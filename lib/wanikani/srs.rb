@@ -5,8 +5,8 @@ module Wanikani
 
     # Gets the counts for each SRS level and item types.
     #
-    # @param [String] item_type the SRS level that will be returned.
-    # @return [Hash] Returns the SRS information for each level for the user.
+    # @param item_type [String] the SRS level that will be returned.
+    # @return [Hash] the SRS information for each level for the user.
     def srs_distribution(item_type = "all")
       raise ArgumentError, "Please use a valid SRS type (or none for all types)" if !ITEM_TYPES.include?(item_type)
 
@@ -19,8 +19,8 @@ module Wanikani
 
     # Gets all items for a specific SRS level.
     #
-    # @param [String] item_type the SRS level for the items returned.
-    # @return [Array] Returns all the items matching the specified SRS for each level for the user.
+    # @param item_type [String] the SRS level for the items returned.
+    # @return [Array<Hash>] all the items matching the specified SRS for each level for the user.
     def srs_items_by_type(item_type)
       raise ArgumentError, "Please use a valid SRS type." if !ITEM_TYPES.include?(item_type) || item_type == "all"
 
@@ -38,7 +38,7 @@ module Wanikani
 
     # Gets the full response of the SRS Distribution API call.
     #
-    # @return [Hash] Full response from the SRS Distribution API call.
+    # @return [Hash] full response from the SRS Distribution API call.
     def full_srs_distribution_response
       return api_response("srs-distribution")
     end
