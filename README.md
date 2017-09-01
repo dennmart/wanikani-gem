@@ -58,6 +58,9 @@ require 'wanikani'
 
 @client.on_vacation?
   # => false
+
+# Get the full WaniKani API response.
+@client.full_user_response
 ```
 
 ### Gravatar URL
@@ -95,6 +98,9 @@ require 'wanikani'
 
 @client.reviews_available?
   # => true
+
+# Get the full WaniKani API response.
+@client.full_study_queue_response
 ```
 
 ### Level Progression
@@ -106,6 +112,9 @@ require 'wanikani'
 
 @client.level_progression
   # => {"current_level"=>25, "radicals_progress"=>5, "radicals_total"=>9, "kanji_progress"=>10, "kanji_total"=>23}
+
+# Get the full WaniKani API response.
+@client.full_level_progression_response
 ```
 
 ### SRS Distribution
@@ -121,6 +130,9 @@ require 'wanikani'
 # You can alternatively pass an SRS level as a parameter to get only that information.
 @client.srs_distribution("apprentice")
   # => {"radicals"=>1, "kanji"=>4, "vocabulary"=>12, "total"=>17}
+
+# Get the full WaniKani API response.
+@client.full_srs_distribution_response
 ```
 
 ### Items by SRS level
@@ -160,6 +172,9 @@ require 'wanikani'
 
 @client.recent_unlocks({ limit: 1, type: "kanji" })
   # => [{"type"=>"kanji", "character"=>"辺", "meaning"=>"area", "onyomi"=>"へん", "kunyomi"=>"あたり", "important_reading"=>"onyomi", "level"=>7, "unlocked_date"=>1355762469}]
+
+# Get the full WaniKani API response.
+@client.full_recent_unlocks_response
 ```
 
 ### Critical Items
@@ -172,6 +187,9 @@ require 'wanikani'
 # You can pass an optional parameter for getting critical items under a specific percentage (default: 75).
 @client.critical_items(90)
   # => [{"type"=>"vocabulary", "character"=>"地下", "kana"=>"ちか", "meaning"=>"underground", "level"=>6, "percentage"=>"84"}, {"type"=>"kanji", "character"=>"麦", "meaning"=>"wheat", "onyomi"=>nil, "kunyomi"=>"むぎ", "important_reading"=>"kunyomi", "level"=>5, "percentage"=>"89"}, {"type"=>"radical", "character"=>"亠", "meaning"=>"lid", "image"=>nil, "level"=>1, "percentage"=>"90"}]
+
+# Get the full WaniKani API response.
+@client.full_critical_items_response
 ```
 
 ### Radicals list by level
