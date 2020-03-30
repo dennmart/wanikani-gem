@@ -9,7 +9,7 @@ $ gem install wanikani
 
 ## Usage
 
-To use the WaniKani gem, you need to set up client, using the API key from your account. The API key can be found in your [account settings](http://www.wanikani.com/account). Currently, the API only supports version 1 of the WaniKani API.
+To use the WaniKani gem, you need to set up client, using the API key from your account. The API key can be found in your [account settings](https://www.wanikani.com/settings/personal_access_tokens).
 
 ```ruby
 require 'wanikani'
@@ -17,12 +17,13 @@ require 'wanikani'
 @client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
 ```
 
-By default, the gem uses the current API version (currently `v1.4`). You can use an older API version by specifying a valid API version when setting up the client.
+By default, the gem uses the old API version (currently `v1.4`). You can use the current API version 2 by choosing the v2 client.
+
 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY", api_version: "v1")
+@client = Wanikani::ClientV2.new(api_key: "YOUR_API_KEY", api_version: "v2")
 ```
 
 ### Check if an API key is valid
@@ -82,6 +83,9 @@ require 'wanikani'
 @client.gravatar_url(secure: true)
   # => "https://secure.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
 ```
+
+`References to Gravatar were removed in API V2 and gravatar_url
+is not available anymore`
 
 ### Study Queue
 
@@ -246,6 +250,17 @@ The gem will handle API request exceptions with the following exception classes:
 
 - `Wanikani::InvalidKey`: The API response will return a 401 status code indicating that the API key used is not valid. The gem will throw this exception so you can catch errors where the API key is not valid.
 - `Wanikani::Exception`: Any API responses with a non-successful (20x) status code **or** with an `error` key in the body will throw this exception, including additional information on the status code (if not a 20x status code) or the message in the body (if the `error` key is present in the response).
+
+## Migrating to V2
+
+API version 1 is at the end of it's lifecycle and by September 2020, it will be
+shut down. These are things you have to pay attention to when migrating to
+API V2:
+
+* User:
+** Gravatar key was removed from user API response and `gravatar_url` from the gem
+** title, about, post_count and topic_count were removed from the API
+
 
 ## Contributing
 

@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 RSpec.describe Wanikani::Client do
+  let(:endpoint) { 'https://www.wanikani.com/api' }
+
   describe "#initialize" do
     it "raises an ArgumentError if the API key is not set" do
       expect {
@@ -28,25 +30,25 @@ RSpec.describe Wanikani::Client do
       end
 
       it "returns false if the API call to WaniKani returns an unsuccessful response" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/invalid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/invalid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), status: 401, headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?("invalid-api-key")).to eq(false)
       end
 
       it "returns false if the API call to WaniKani returns an error key" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/invalid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/invalid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?("invalid-api-key")).to eq(false)
       end
 
       it "returns true if the API call to WaniKani is valid" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/valid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/valid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?("valid-api-key")).to eq(true)
       end
 
       it "uses the client's specified API key if the parameter is nil" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/#{client.api_key}/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/#{client.api_key}/user-information").
           to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?(nil)).to eq(true)
       end
@@ -54,19 +56,19 @@ RSpec.describe Wanikani::Client do
 
     context "without specifying parameter" do
       it "returns false if the API call to WaniKani returns an unsuccessful response" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/#{client.api_key}/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/#{client.api_key}/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), status: 401, headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?).to eq(false)
       end
 
       it "returns false if the API call to WaniKani returns an error key" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/#{client.api_key}/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/#{client.api_key}/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json" })
         expect(client.valid_api_key?).to eq(false)
       end
 
       it "returns true if the API call to WaniKani is valid" do
-        stub_request(:get, "https://www.wanikani.com/api/#{client.api_version}/user/#{client.api_key}/user-information").
+        stub_request(:get, "#{endpoint}/#{client.api_version}/user/#{client.api_key}/user-information").
            to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json"  })
         expect(client.valid_api_key?).to eq(true)
       end
@@ -88,19 +90,19 @@ RSpec.describe Wanikani::Client do
       end
 
       it "returns false if the API call to WaniKani returns an unsuccessful response" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani::DEFAULT_API_VERSION}/user/invalid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{Wanikani::DEFAULT_API_VERSION}/user/invalid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), status: 401, headers: { "Content-Type" => "application/json" })
         expect(Wanikani::Client.valid_api_key?("invalid-api-key")).to eq(false)
       end
 
       it "returns false if the API call to WaniKani returns an error key" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani::DEFAULT_API_VERSION}/user/invalid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{Wanikani::DEFAULT_API_VERSION}/user/invalid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/error.json"), headers: { "Content-Type" => "application/json" })
         expect(Wanikani::Client.valid_api_key?("invalid-api-key")).to eq(false)
       end
 
       it "returns true if the API call to WaniKani is valid" do
-        stub_request(:get, "https://www.wanikani.com/api/#{Wanikani::DEFAULT_API_VERSION}/user/valid-api-key/user-information").
+        stub_request(:get, "#{endpoint}/#{Wanikani::DEFAULT_API_VERSION}/user/valid-api-key/user-information").
            to_return(body: File.new("spec/fixtures/user-information.json"), headers: { "Content-Type" => "application/json" })
         expect(Wanikani::Client.valid_api_key?("valid-api-key")).to eq(true)
       end
