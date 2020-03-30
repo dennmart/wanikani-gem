@@ -84,8 +84,8 @@ require 'wanikani'
   # => "https://secure.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
 ```
 
-`References to Gravatar were removed in API V2 and gravatar_url
-is not available anymore`
+*References to Gravatar were removed in API V2 and gravatar_url
+is not available anymore.*
 
 ### Study Queue
 
@@ -258,8 +258,8 @@ shut down. These are things you have to pay attention to when migrating to
 API V2:
 
 * User:
-** Gravatar key was removed from user API response and `gravatar_url` from the gem
-** title, about, post_count and topic_count were removed from the API
+  * Gravatar key was removed from user API response and `gravatar_url` from the gem
+  * `title`, `about`, `post_count` and `topic_count` were removed from the API
 
 
 ## Contributing
