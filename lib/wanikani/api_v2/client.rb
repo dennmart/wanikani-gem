@@ -67,6 +67,27 @@ module Wanikani::ApiV2
       API_ENDPOINT
     end
 
+    # Contacts the WaniKani API and returns the data specified.
+    #
+    # @param resource [String] the resource to access.
+    # @param parameters [Hash] optional arguments for the specified resource.
+    # @return [Hash] the parsed API response.
+    def get(resource, parameters = nil)
+      raise ArgumentError, "You must define a resource to query WaniKani" if resource.nil? || resource.empty?
+
+      begin
+        res = client.get("/#{@api_version}/#{resource}", parameters)
+
+        if !res.success? || res.body.has_key?("error")
+          raise_exception(res)
+        else
+          return res.body
+        end
+      rescue => error
+        raise Exception, "There was an error: #{error.message}"
+      end
+    end
+
     private
 
     # Sets up the HTTP client for communicating with the WaniKani API.
@@ -88,26 +109,6 @@ module Wanikani::ApiV2
 }
     end
 
-    # Contacts the WaniKani API and returns the data specified.
-    #
-    # @param resource [String] the resource to access.
-    # @param optional_arg [String] optional arguments for the specified resource.
-    # @return [Hash] the parsed API response.
-    def api_response(resource, optional_arg = nil)
-      raise ArgumentError, "You must define a resource to query WaniKani" if resource.nil? || resource.empty?
-
-      begin
-        res = client.get("/#{@api_version}/#{resource}")
-
-        if !res.success? || res.body.has_key?("error")
-          raise_exception(res)
-        else
-          return res.body
-        end
-      rescue => error
-        raise Exception, "There was an error: #{error.message}"
-      end
-    end
 
     # Handles exceptions according to the API response.
     #

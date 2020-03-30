@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "object": "radical",
+  "url": "https://api.wanikani.com/v2/subjects/1",
+  "data_updated_at": "2018-03-29T23:13:14.064836Z",
+  "data": {
+    "amalgamation_subject_ids": [
+      5,
+      4,
+      98
+    ],
+    "auxiliary_meanings": [
+      {
+        "meaning": "grund",
+        "type": "blacklist"
+      }
+    ],
+    "characters": "一",
+    "character_images": [
+      {
+        "url": "https://cdn.wanikani.com/images/legacy/576-subject-1-without-css-original.svg?1520987227",
+        "metadata": {
+          "inline_styles": false
+        },
+        "content_type": "image/svg+xml"
+      }
+    ],
+    "created_at": "2012-02-27T18:08:16.000000Z",
+    "document_url": "https://www.wanikani.com/radicals/ground",
+    "hidden_at": null,
+    "lesson_position": 1,
+    "level": 1,
+    "meanings": [
+      {
+        "meaning": "Ground",
+        "primary": true,
+        "accepted_answer": true
+      }
+    ],
+    "meaning_mnemonic": "This radical consists of a single, horizontal stroke. What's the biggest, single, horizontal stroke? That's the ground. Look at the <radical>ground</radical>, look at this radical, now look at the ground again. Kind of the same, right?",
+    "slug": "ground"
+  }
+}

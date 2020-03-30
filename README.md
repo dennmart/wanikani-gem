@@ -24,6 +24,16 @@ By default, the gem uses the old API version (currently `v1.4`). You can use the
 require 'wanikani'
 
 @client = Wanikani::ClientV2.new(api_key: "YOUR_API_KEY", api_version: "v2")
+
+
+Wanikani.configure do |config|
+  config.api_key = "YOUR_API_KEY"
+  config.api_version = "v2"
+end
+
+response = Wanikani::Subject.find_by
+@subjects = response.data
+
 ```
 
 ### Check if an API key is valid

@@ -6,7 +6,7 @@ module Wanikani::ApiV2
     # @return [Hash] the user information for the WaniKani account by from
     #   the API key.
     def user
-      response['data']
+      data
     end
 
     alias_method :user_information, :user
@@ -16,7 +16,7 @@ module Wanikani::ApiV2
     # @return [Boolean] true if current_vacation_started_at contains a
     #   timestamp, false if current_vacation_started_at is null.
     def on_vacation?
-      vacation_date = user['current_vacation_started_at']
+      vacation_date = data['current_vacation_started_at']
       return !vacation_date.nil?
     end
 
@@ -29,8 +29,12 @@ module Wanikani::ApiV2
 
     private
 
+    def data
+      response['data']
+    end
+
     def response
-      api_response('user')
+      get('user')
     end
   end
 end

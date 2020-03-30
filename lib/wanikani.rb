@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'wanikani/client'
+require 'wanikani/response'
+require 'wanikani/configuration'
 require 'wanikani/api_v2/client'
+require 'wanikani/models/subject'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -11,4 +14,17 @@ module Wanikani
 
   class InvalidKey < Exception; end
   class Exception < Exception; end
+
+  DEFAULT_CONFIG = {
+    api_version: DEFAULT_API_VERSION
+  }
+
+  def self.configure
+    yield @config ||= Wanikani::Configuration.new(DEFAULT_CONFIG)
+  end
+
+  # global settings
+  def self.config
+    @config ||= Wanikani::Configuration.new(DEFAULT_CONFIG)
+  end
 end
