@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
-RSpec.describe Wanikani::Subject do
+RSpec.describe Wanikani::VoiceActor do
   describe '#find_by' do
-    let(:endpoint) { 'https://api.wanikani.com/v2/subjects' }
-    let(:subjects_response) { File.new('spec/fixtures/api_v2/subjects.json') }
+    let(:endpoint) { 'https://api.wanikani.com/v2/voice_actors' }
+    let(:voice_actors_response) { File.new('spec/fixtures/api_v2/voice_actors.json') }
 
     before(:each) do
-      stub_request(:get, endpoint).to_return(body: subjects_response,
+      stub_request(:get, endpoint).to_return(body: voice_actors_response,
                                              headers: headers)
     end
 
@@ -17,15 +17,15 @@ RSpec.describe Wanikani::Subject do
       end
 
       it 'returns expected total_count' do
-        expect(subject.find_by.total_count).to eq(2027)
+        expect(subject.find_by.total_count).to eq(2)
       end
     end
   end
 
   describe '#find' do
     let(:id) { 1701 }
-    let(:endpoint) { "https://api.wanikani.com/v2/subjects/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/kanji.json') }
+    let(:endpoint) { "https://api.wanikani.com/v2/voice_actors/#{id}" }
+    let(:kanji_response) { File.new('spec/fixtures/api_v2/voice_actor.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,
@@ -33,11 +33,12 @@ RSpec.describe Wanikani::Subject do
     end
 
     context 'without attributes' do
-      it 'returns kanji response' do
+      it 'returns voice_actor response' do
         response = subject.find(id)
         expect(response).to be_a Wanikani::Response
-        expect(response.object).to eq('kanji')
+        expect(response.object).to eq('voice_actor')
       end
     end
   end
+
 end

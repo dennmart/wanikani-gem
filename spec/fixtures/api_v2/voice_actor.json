@@ -1,0 +1,12 @@
+{
+  "id": 234,
+  "object": "voice_actor",
+  "url": "https://api.wanikani.com/v2/voice_actors/1",
+  "data_updated_at": "2017-12-20T00:24:47.048380Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "name": "Kyoko",
+    "gender": "female",
+    "description": "Tokyo accent"
+  }
+}
