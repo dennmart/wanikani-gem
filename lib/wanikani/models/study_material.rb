@@ -14,7 +14,6 @@ module Wanikani
         respond(client.get('study_materials', parameters))
       end
 
-
       def find(id)
         respond(client.get("study_materials/#{id}"))
       end

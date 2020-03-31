@@ -3,8 +3,10 @@ require 'wanikani/client'
 require 'wanikani/response'
 require 'wanikani/configuration'
 require 'wanikani/api_v2/client'
-require 'wanikani/models/subject'
+require 'wanikani/models/review_statistic'
+require 'wanikani/models/srs_stages'
 require 'wanikani/models/study_material'
+require 'wanikani/models/subject'
 require 'wanikani/models/summary'
 
 Encoding.default_external = Encoding::UTF_8
