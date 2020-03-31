@@ -2,16 +2,6 @@
 RSpec.describe Wanikani::ApiV2::User do
   let(:client) { Wanikani::ApiV2::Client.new(api_key: "my-api-key") }
   let(:endpoint) { 'https://api.wanikani.com/v2/user' }
-  let(:headers) do
-    {
-      'Accept'=>'*/*',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>'Bearer my-api-key',
-      'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.3',
-      'Wanikani-Revision'=>'20170710'
-      }
-  end
   let(:error_response) { File.new('spec/fixtures/api_v2/error.json') }
   let(:user_response) { File.new('spec/fixtures/api_v2/user.json') }
 

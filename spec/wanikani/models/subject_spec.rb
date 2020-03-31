@@ -1,24 +1,5 @@
 # -*- encoding : utf-8 -*-
 RSpec.describe Wanikani::Subject do
-
-  before do
-    Wanikani.configure do |config|
-      config.api_key = "my-api-key"
-      config.api_version = "v2"
-    end
-  end
-
-  let(:headers) do
-    {
-      'Accept'=>'*/*',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>'Bearer my-api-key',
-      'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.3',
-      'Wanikani-Revision'=>'20170710'
-      }
-  end
-
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/subjects' }
     let(:subjects_response) { File.new('spec/fixtures/api_v2/subjects.json') }
