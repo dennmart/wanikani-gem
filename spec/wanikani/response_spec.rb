@@ -9,7 +9,7 @@ RSpec.describe Wanikani::Response do
     end
   end
 
-  describe '#count' do
-    it { expect(response.count).to eql(response_data['pages']['per_page']) }
+  describe '#per_page' do
+    it { expect(response.per_page).to eql(response_data['pages']['per_page']) }
   end
 end

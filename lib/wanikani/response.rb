@@ -23,7 +23,7 @@ module Wanikani
       response_data['data_updated_at']
     end
 
-    def count
+    def per_page
       response_data['pages']['per_page']
     end
 
