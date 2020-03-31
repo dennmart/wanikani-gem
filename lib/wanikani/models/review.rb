@@ -1,23 +1,20 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
-  module ReviewStatistic
+  module Review
     class << self
       def find_by(parameters = {})
-        # hidden
+        # assignment_ids
         # ids
-        # percentages_greater_than
-        # percentages_less_than
         # subject_ids
-        # subject_types
         # updated_after
         # page_after_id
         # page_before_id
 
-        respond(client.get('review_statistics', parameters))
+        respond(client.get('reviews', parameters))
       end
 
       def find(id)
-        respond(client.get("review_statistics/#{id}"))
+        respond(client.get("reviews/#{id}"))
       end
 
       private
