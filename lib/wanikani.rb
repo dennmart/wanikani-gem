@@ -4,6 +4,8 @@ require 'wanikani/response'
 require 'wanikani/configuration'
 require 'wanikani/api_v2/client'
 require 'wanikani/models/subject'
+require 'wanikani/models/study_material'
+require 'wanikani/models/summary'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8

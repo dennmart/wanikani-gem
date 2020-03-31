@@ -1,0 +1,27 @@
+{
+  "object": "collection",
+  "url": "https://api.wanikani.com/v2/study_materials",
+  "pages": {
+    "per_page": 500,
+    "next_url": "https://api.wanikani.com/v2/study_materials?page_after_id=52342",
+    "previous_url": null
+  },
+  "total_count": 88,
+  "data_updated_at": "2017-12-21T22:42:11.468155Z",
+  "data": [
+    {
+      "id": 65231,
+      "object": "study_material",
+      "url": "https://api.wanikani.com/v2/study_materials/65231",
+      "data_updated_at": "2017-09-30T01:42:13.453291Z",
+      "data": {
+        "created_at": "2017-09-30T01:42:13.453291Z",
+        "subject_id": 241,
+        "subject_type": "radical",
+        "meaning_note": "I like turtles",
+        "reading_note": "I like durtles",
+        "meaning_synonyms": ["burn", "sizzle"]
+      }
+    }
+  ]
+}
