@@ -2,22 +2,8 @@
 require 'faraday'
 require 'faraday_middleware'
 
-require 'wanikani/api_v2/user'
-require 'wanikani/study_queue'
-require 'wanikani/level'
-require 'wanikani/srs'
-require 'wanikani/recent_unlocks'
-require 'wanikani/critical_items'
-
 module Wanikani::ApiV2
   class Client
-    include Wanikani::ApiV2::User
-    include Wanikani::StudyQueue
-    include Wanikani::Level
-    include Wanikani::SRS
-    include Wanikani::RecentUnlocks
-    include Wanikani::CriticalItems
-
     API_ENDPOINT = "https://api.wanikani.com"
 
     attr_accessor :api_key, :api_version

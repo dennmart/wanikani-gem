@@ -12,6 +12,7 @@ require 'wanikani/models/srs_stages'
 require 'wanikani/models/study_material'
 require 'wanikani/models/subject'
 require 'wanikani/models/summary'
+require 'wanikani/models/user'
 require 'wanikani/models/voice_actor'
 
 Encoding.default_external = Encoding::UTF_8
