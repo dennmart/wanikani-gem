@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::ReviewStatistic do
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/review_statistics' }
-    let(:subjects_response) { File.new('spec/fixtures/api_v2/review_statistics.json') }
+    let(:subjects_response) { File.new('spec/fixtures/review_statistics.json') }
 
     before(:each) do
       stub_request(:get, endpoint).to_return(body: subjects_response,
@@ -25,7 +25,7 @@ RSpec.describe Wanikani::ReviewStatistic do
   describe '#find' do
     let(:id) { 80461982 }
     let(:endpoint) { "https://api.wanikani.com/v2/review_statistics/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/review_statistic.json') }
+    let(:kanji_response) { File.new('spec/fixtures/review_statistic.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,

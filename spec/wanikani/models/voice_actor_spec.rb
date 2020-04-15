@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::VoiceActor do
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/voice_actors' }
-    let(:voice_actors_response) { File.new('spec/fixtures/api_v2/voice_actors.json') }
+    let(:voice_actors_response) { File.new('spec/fixtures/voice_actors.json') }
 
     before(:each) do
       stub_request(:get, endpoint).to_return(body: voice_actors_response,
@@ -25,7 +25,7 @@ RSpec.describe Wanikani::VoiceActor do
   describe '#find' do
     let(:id) { 1701 }
     let(:endpoint) { "https://api.wanikani.com/v2/voice_actors/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/voice_actor.json') }
+    let(:kanji_response) { File.new('spec/fixtures/voice_actor.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,

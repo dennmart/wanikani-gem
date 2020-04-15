@@ -1,6 +1,1 @@
-{
-  "error": {
-    "code": "user_not_found",
-    "message": "User does not exist."
-  }
-}
+{ "error": "User does not exist.", "code": 404 }

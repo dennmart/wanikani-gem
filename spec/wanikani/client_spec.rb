@@ -11,8 +11,8 @@ RSpec.describe Wanikani::Client do
       'Wanikani-Revision'=>'20170710'
       }
   end
-  let(:error_response) { File.new('spec/fixtures/api_v2/error.json') }
-  let(:user_response) { File.new('spec/fixtures/api_v2/user.json') }
+  let(:error_response) { File.new('spec/fixtures/error.json') }
+  let(:user_response) { File.new('spec/fixtures/user.json') }
 
   describe "#initialize" do
     it "raises an ArgumentError if the API key is not set" do

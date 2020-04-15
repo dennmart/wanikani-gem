@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::LevelProgression do
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/level_progressions' }
-    let(:subjects_response) { File.new('spec/fixtures/api_v2/level_progressions.json') }
+    let(:subjects_response) { File.new('spec/fixtures/level_progressions.json') }
 
     before(:each) do
       stub_request(:get, endpoint).to_return(body: subjects_response,
@@ -25,7 +25,7 @@ RSpec.describe Wanikani::LevelProgression do
   describe '#find' do
     let(:id) { 49392 }
     let(:endpoint) { "https://api.wanikani.com/v2/level_progressions/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/level_progression.json') }
+    let(:kanji_response) { File.new('spec/fixtures/level_progression.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,

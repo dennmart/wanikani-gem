@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::StudyMaterial do
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/study_materials' }
-    let(:subjects_response) { File.new('spec/fixtures/api_v2/study_materials.json') }
+    let(:subjects_response) { File.new('spec/fixtures/study_materials.json') }
 
     before(:each) do
       stub_request(:get, endpoint).to_return(body: subjects_response,
@@ -25,7 +25,7 @@ RSpec.describe Wanikani::StudyMaterial do
   describe '#find' do
     let(:id) { 65231 }
     let(:endpoint) { "https://api.wanikani.com/v2/study_materials/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/study_material.json') }
+    let(:kanji_response) { File.new('spec/fixtures/study_material.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,

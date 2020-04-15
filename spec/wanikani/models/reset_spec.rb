@@ -2,7 +2,7 @@
 RSpec.describe Wanikani::Reset do
   describe '#find_by' do
     let(:endpoint) { 'https://api.wanikani.com/v2/resets' }
-    let(:subjects_response) { File.new('spec/fixtures/api_v2/resets.json') }
+    let(:subjects_response) { File.new('spec/fixtures/resets.json') }
 
     before(:each) do
       stub_request(:get, endpoint).to_return(body: subjects_response,
@@ -25,7 +25,7 @@ RSpec.describe Wanikani::Reset do
   describe '#find' do
     let(:id) { 234 }
     let(:endpoint) { "https://api.wanikani.com/v2/resets/#{id}" }
-    let(:kanji_response) { File.new('spec/fixtures/api_v2/reset.json') }
+    let(:kanji_response) { File.new('spec/fixtures/reset.json') }
 
     before do
       stub_request(:get, endpoint).to_return(body: kanji_response,
