@@ -26,7 +26,7 @@ module Wanikani
       end
 
       def client
-        @client ||= ::Wanikani::ApiV2::Client.new(::Wanikani.config.to_hash)
+        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
       end
     end
   end

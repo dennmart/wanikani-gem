@@ -15,7 +15,6 @@ RSpec.configure do |config|
   config.before do
     Wanikani.configure do |config|
       config.api_key = "my-api-key"
-      config.api_version = "v2"
     end
   end
 
@@ -57,10 +56,4 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.include(Wanikani::Support)
-end
-
-def wanikani_url(client, resource, optional_arg = nil)
-  raise ArgumentError, "You must specify a Wanikani::Client instance" unless client.is_a?(Wanikani::Client)
-  raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
-  "#{client.api_endpoint}/api/#{client.api_version}/user/#{client.api_key}/#{resource}/#{optional_arg}"
 end

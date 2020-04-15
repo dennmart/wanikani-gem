@@ -2,7 +2,6 @@
 require 'wanikani/client'
 require 'wanikani/response'
 require 'wanikani/configuration'
-require 'wanikani/api_v2/client'
 require 'wanikani/models/assignment'
 require 'wanikani/models/level_progression'
 require 'wanikani/models/reset'
@@ -19,14 +18,14 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 module Wanikani
-  DEFAULT_API_VERSION = "v2"
-  VALID_API_VERSIONS = %w(v1 v1.1 v1.2 v1.3 v1.4 v2)
+  DEFAULT_API_REVISION = '20170710'
+  VALID_API_REVISIONS = %w(20170710)
 
   class InvalidKey < Exception; end
   class Exception < Exception; end
 
   DEFAULT_CONFIG = {
-    api_version: DEFAULT_API_VERSION
+    api_revision: DEFAULT_API_REVISION
   }
 
   def self.configure

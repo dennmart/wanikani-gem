@@ -2,25 +2,11 @@
 require 'faraday'
 require 'faraday_middleware'
 
-require 'wanikani/user'
-require 'wanikani/study_queue'
-require 'wanikani/level'
-require 'wanikani/srs'
-require 'wanikani/recent_unlocks'
-require 'wanikani/critical_items'
-
 module Wanikani
   class Client
-    include Wanikani::User
-    include Wanikani::StudyQueue
-    include Wanikani::Level
-    include Wanikani::SRS
-    include Wanikani::RecentUnlocks
-    include Wanikani::CriticalItems
+    API_ENDPOINT = "https://api.wanikani.com"
 
-    attr_accessor :api_key, :api_version
-
-    API_ENDPOINT = "https://www.wanikani.com"
+    attr_accessor :api_key, :api_revision
 
     # Initialize a client which will be used to communicate with WaniKani.
     #
@@ -29,10 +15,11 @@ module Wanikani
     # @return [Wanikani::Client] an instance of Wanikani::Client.
     def initialize(options = {})
       raise ArgumentError, "You must specify a WaniKani API key before querying the API." if options[:api_key].nil? || options[:api_key].empty?
-      raise ArgumentError, "API version should be one of the following: #{Wanikani::VALID_API_VERSIONS.join(', ')}." unless Wanikani::VALID_API_VERSIONS.include?(options[:api_version]) || options[:api_version].nil?
+      raise ArgumentError, "API revision should be one of the following: #{Wanikani::VALID_API_REVISIONS.join(', ')}." unless Wanikani::VALID_API_REVISIONS.include?(options[:api_revision]) || options[:api_revision].nil?
 
       @api_key = options[:api_key]
-      @api_version = options[:api_version] ||= Wanikani::DEFAULT_API_VERSION
+      @api_revision = options[:api_revision] ||= Wanikani::DEFAULT_API_REVISION
+
     end
 
     # Verifies if the client's API key is valid by checking WaniKani's API.
@@ -43,7 +30,7 @@ module Wanikani
       api_key ||= @api_key
       return false if api_key.empty?
 
-      res = client.get("/api/#{@api_version}/user/#{api_key}/user-information")
+      res = client.get("/v2/user/")
 
       return false if !res.success? || res.body.has_key?("error")
       return true
@@ -67,29 +54,16 @@ module Wanikani
       API_ENDPOINT
     end
 
-    private
-
-    # Sets up the HTTP client for communicating with the WaniKani API.
-    #
-    # @return [Faraday::Connection] the HTTP client to communicate with the
-    #   WaniKani API.
-    def client
-      Faraday.new(url: api_endpoint) do |conn|
-        conn.response :json, :content_type => /\bjson$/
-        conn.adapter Faraday.default_adapter
-      end
-    end
-
     # Contacts the WaniKani API and returns the data specified.
     #
     # @param resource [String] the resource to access.
-    # @param optional_arg [String] optional arguments for the specified resource.
+    # @param parameters [Hash] optional arguments for the specified resource.
     # @return [Hash] the parsed API response.
-    def api_response(resource, optional_arg = nil)
+    def get(resource, parameters = nil)
       raise ArgumentError, "You must define a resource to query WaniKani" if resource.nil? || resource.empty?
 
       begin
-        res = client.get("/api/#{@api_version}/user/#{@api_key}/#{resource}/#{optional_arg}")
+        res = client.get("/v2/#{resource}", parameters)
 
         if !res.success? || res.body.has_key?("error")
           raise_exception(res)
@@ -101,6 +75,28 @@ module Wanikani
       end
     end
 
+    private
+
+    # Sets up the HTTP client for communicating with the WaniKani API.
+    #
+    # @return [Faraday::Connection] the HTTP client to communicate with the
+    #   WaniKani API.
+    def client
+      Faraday.new(url: api_endpoint, :headers => headers) do |conn|
+        conn.response :json, :content_type => /\bjson$/
+        conn.adapter Faraday.default_adapter
+      end
+    end
+
+    def headers
+      {
+        'Content-Type' => 'application/json',
+        'Wanikani-Revision' => api_revision,
+        'Authorization' => "Bearer #{api_key}"
+}
+    end
+
+
     # Handles exceptions according to the API response.
     #
     # @param response [Hash] the parsed API response from WaniKani's API.
@@ -108,7 +104,7 @@ module Wanikani
       raise Wanikani::InvalidKey, "The API key used for this request is invalid." and return if response.status == 401
 
       message = if response.body.is_a?(Hash) and response.body.has_key?("error")
-                  response.body["error"]["message"]
+                  response.body["error"]
                 else
                   "Status code: #{response.status}"
                 end
