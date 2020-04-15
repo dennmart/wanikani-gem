@@ -14,17 +14,6 @@ To use the WaniKani gem, you need to set up client, using the API key from your 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-response = Wanikani::Subject.find_all
-@subjects = response.data
-```
-
-By default, the gem uses the API version 2 with revision 20170710.
-
-```ruby
-require 'wanikani'
-
 Wanikani.configure do |config|
   config.api_key = "YOUR_API_KEY"
 end
@@ -33,6 +22,9 @@ response = Wanikani::Subject.find_all
 @subjects = response.data
 
 ```
+
+By default, the gem uses the API version 2 with revision 20170710.
+
 
 ### Check if an API key is valid
 
@@ -59,9 +51,7 @@ Wanikani::Client.valid_api_key?("VALID_API_KEY")
 
 The gem supports all endpoints documented in [WaniKani's API](https://docs.api.wanikani.com).
 
-
-
-### Example: User Information
+#### Example: User Information
 
 Some endpoints like `User`, `Summary` and `SrsStages` return only a
 single object.
@@ -78,7 +68,7 @@ response = Wanikani::User.fetch
 
 ```
 
-### Example: User Information
+#### Example: Subjects
 
 Most endpoints can return either a specified object or a collection of objects.
 
@@ -116,8 +106,14 @@ response.type
 
 @kanji = response.data
   # => { "id": 440, "object": "kanji", "url": "https://api.wanikani.com/v2/subjects/440", "data_updated_at": "2018-03-29T23:14:30.805034Z", "data": {  "created_at": "2012-02-27T19:55:19.000000Z",  "level": 1,  "slug": "一",  "hidden_at": null,  "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",  "characters": "一",  "meanings": [  {  "meaning": "One",  "primary": true,  "accepted_answer": true  }  ],  "readings": [  {  "type": "onyomi",  "primary": true,  "accepted_answer": true,  "reading": "いち"  },  {  "type": "kunyomi",  "primary": false,  "accepted_answer": false,  "reading": "ひと"  },  {  "type": "nanori",  "primary": false,  "accepted_answer": false,  "reading": "かず"  }  ],  "component_subject_ids": [  1  ],  "amalgamation_subject_ids": [  56,  88,  91  ],  "visually_similar_subject_ids": [],  "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",  "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. \"Who did this to you?\" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",  "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",  "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",  "lesson_position": 2 } }
-
 ```
+
+Endpoints returning collections may have limits to the number of elements
+they return. The API supports access via pagination, however this needs to
+be implemented outside of the gem.
+
+Please see the [Wanikani's API](https://docs.api.wanikani.com/20170710/#pagination)
+for more details.
 
 ## Handling API Request Exceptions
 
