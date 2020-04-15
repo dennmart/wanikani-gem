@@ -20,6 +20,14 @@ RSpec.describe Wanikani::Assignment do
         expect(subject.find_by.total_count).to eq(1600)
       end
     end
+
+    context 'with unsupported attribute' do
+      it 'filters attribute' do
+        response = subject.find_by(unsupported_attribute: 3)
+        expect(response).to be_a Wanikani::Response
+        expect(response.object).to eq('collection')
+      end
+    end
   end
 
   describe '#find' do

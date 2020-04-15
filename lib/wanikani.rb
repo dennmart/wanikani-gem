@@ -2,6 +2,7 @@
 require 'wanikani/client'
 require 'wanikani/response'
 require 'wanikani/configuration'
+require 'wanikani/models/shared'
 require 'wanikani/models/assignment'
 require 'wanikani/models/level_progression'
 require 'wanikani/models/reset'

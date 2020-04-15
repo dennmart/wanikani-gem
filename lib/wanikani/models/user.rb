@@ -1,20 +1,10 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
   module User
-    class << self
-      def fetch
-        respond(client.get('user'))
-      end
+    extend Wanikani::Shared
 
-      private
-
-      def respond(json)
-        Response.new(json)
-      end
-
-      def client
-        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
-      end
+    def self.fetch
+      respond(client.get('user'))
     end
   end
 end

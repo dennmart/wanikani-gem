@@ -2,8 +2,8 @@
 
 ### 3.0.0
 - **Breaking**: The wanikani gem was completely revamped to support Wanikani's V2 API.
+- With the API change, Gravatar is not supported anymore and many data fields were moved or replaced
 . Please read the [documentation](https://github.com/dennmart/wanikani-gem) for more information.
-
 
 ### 2.0.0
 - **Breaking**: The wanikani gem was completely revamped to use a per-instance client. Please read the [documentation](https://github.com/dennmart/wanikani-gem) for more information.

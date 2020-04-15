@@ -1,34 +1,24 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
   module ReviewStatistic
-    class << self
-      def find_by(parameters = {})
-        # hidden
-        # ids
-        # percentages_greater_than
-        # percentages_less_than
-        # subject_ids
-        # subject_types
-        # updated_after
-        # page_after_id
-        # page_before_id
+    extend Wanikani::Shared
 
-        respond(client.get('review_statistics', parameters))
-      end
+    PERMITTED_PARAMS = %w[ids hidden percentages_greater_than percentages_less_than subject_ids subject_types updated_after page_after_id page_before_id].freeze
 
-      def find(id)
-        respond(client.get("review_statistics/#{id}"))
-      end
+    def self.find_all
+      find_by
+    end
 
-      private
+    def self.find_by(parameters = {})
+      respond(client.get('review_statistics', parameters))
+    end
 
-      def respond(json)
-        Response.new(json)
-      end
+    def self.find(id)
+      respond(client.get("review_statistics/#{id}"))
+    end
 
-      def client
-        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
-      end
+    def self.permitted_params
+      PERMITTED_PARAMS
     end
   end
 end

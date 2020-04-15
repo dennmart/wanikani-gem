@@ -1,31 +1,20 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
   module Reset
-    class << self
-      def find_by(parameters = {})
-        # assignment_ids
-        # ids
-        # subject_ids
-        # updated_after
-        # page_after_id
-        # page_before_id
+    extend Wanikani::Shared
 
-        respond(client.get('resets', parameters))
-      end
+    PERMITTED_PARAMS = %w[ids assignment_ids subject_ids updated_after page_after_id page_before_id].freeze
 
-      def find(id)
-        respond(client.get("resets/#{id}"))
-      end
+    def self.find_by(parameters = {})
+      respond(client.get('resets', parameters))
+    end
 
-      private
+    def self.find(id)
+      respond(client.get("resets/#{id}"))
+    end
 
-      def respond(json)
-        Response.new(json)
-      end
-
-      def client
-        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
-      end
+    def self.permitted_params
+      PERMITTED_PARAMS
     end
   end
 end

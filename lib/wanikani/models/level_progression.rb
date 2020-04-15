@@ -1,31 +1,25 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
   module LevelProgression
+    extend Wanikani::Shared
+
     PERMITTED_PARAMS = %w[ids updated_after page_after_id page_before_id].freeze
 
-    class << self
-      def find_by(parameters = {})
-        respond(client.get('level_progressions',
-                           filter(parameters)))
-      end
+    def self.find_all
+      find_by
+    end
 
-      def find(id)
-        respond(client.get("level_progressions/#{id}"))
-      end
+    def self.find_by(parameters = {})
+      respond(client.get('level_progressions',
+                         filter(parameters)))
+    end
 
-      private
+    def self.find(id)
+      respond(client.get("level_progressions/#{id}"))
+    end
 
-      def respond(json)
-        Response.new(json)
-      end
-
-      def filter(parameters)
-        parameters.keep_if { |key, value| key.in?(PERMITTED_PARAMS) }
-      end
-
-      def client
-        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
-      end
+    def self.permitted_params
+      PERMITTED_PARAMS
     end
   end
 end

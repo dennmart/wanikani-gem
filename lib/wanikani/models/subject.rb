@@ -1,33 +1,24 @@
 # -*- encoding : utf-8 -*-
 module Wanikani
   module Subject
-    class << self
-      def find_by(parameters = {})
-        # ids:
-        # types:
-        # slugs:
-        # levels:
-        # hidden:
-        # updated_after:
-        # page_after_id
-        # page_before_id
+    extend Wanikani::Shared
 
-        respond(client.get('subjects', parameters))
-      end
+    PERMITTED_PARAMS = %w[ids types slugs levels hidden updated_after page_after_id page_before_id].freeze
 
-      def find(id)
-        respond(client.get("subjects/#{id}"))
-      end
+    def self.find_all
+      find_by
+    end
 
-      private
+    def self.find_by(parameters = {})
+      respond(client.get('subjects', parameters))
+    end
 
-      def respond(json)
-        Response.new(json)
-      end
+    def self.find(id)
+      respond(client.get("subjects/#{id}"))
+    end
 
-      def client
-        @client ||= ::Wanikani::Client.new(::Wanikani.config.to_hash)
-      end
+    def self.permitted_params
+      PERMITTED_PARAMS
     end
   end
 end
