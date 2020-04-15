@@ -79,6 +79,8 @@ module Wanikani
     def api_response(resource, optional_arg = nil)
       raise ArgumentError, "You must define a resource to query WaniKani" if resource.nil? || resource.empty?
 
+      warn Kernel.caller.first + " access to Wanikani API v1 is deprecated. Please update to Gem version 3.0+ to support API v2."
+
       begin
         res = client.get("/api/#{@api_version}/user/#{@api_key}/#{resource}/#{optional_arg}")
 
