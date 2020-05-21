@@ -1,0 +1,112 @@
+version: 2
+
+jobs:
+  ruby-2.7:
+    docker:
+    - image: ruby:2.7
+    steps:
+    - checkout
+
+    - restore_cache:
+        name: Restore Bundler cache
+        keys:
+          - wanikani-gem-2.7-bundler-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install dependencies
+        command: bundle install --path vendor/bundle
+
+    - save_cache:
+        name: Save Bundler cache
+        key: wanikani-gem-2.7-bundler-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+    - run:
+        name: Run tests
+        command: bundle exec rake spec
+
+  ruby-2.6:
+    docker:
+    - image: ruby:2.6
+    steps:
+    - checkout
+
+    - restore_cache:
+        name: Restore Bundler cache
+        keys:
+          - wanikani-gem-2.6-bundler-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install dependencies
+        command: bundle install --path vendor/bundle
+
+    - save_cache:
+        name: Save Bundler cache
+        key: wanikani-gem-2.6-bundler-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+    - run:
+        name: Run tests
+        command: bundle exec rake spec
+
+
+  ruby-2.5:
+    docker:
+    - image: ruby:2.5
+    steps:
+    - checkout
+
+    - restore_cache:
+        name: Restore Bundler cache
+        keys:
+          - wanikani-gem-2.5-bundler-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install dependencies
+        command: bundle install --path vendor/bundle
+
+    - save_cache:
+        name: Save Bundler cache
+        key: wanikani-gem-2.5-bundler-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+    - run:
+        name: Run tests
+        command: bundle exec rake spec
+
+  ruby-2.4:
+    docker:
+    - image: ruby:2.4
+    steps:
+    - checkout
+
+    - restore_cache:
+        name: Restore Bundler cache
+        keys:
+          - wanikani-gem-2.4-bundler-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install dependencies
+        command: bundle install --path vendor/bundle
+
+    - save_cache:
+        name: Save Bundler cache
+        key: wanikani-gem-2.4-bundler-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+    - run:
+        name: Run tests
+        command: bundle exec rake spec
+
+workflows:
+  version: 2
+  run_tests:
+    jobs:
+      - ruby-2.7
+      - ruby-2.6
+      - ruby-2.5
+      - ruby-2.4
