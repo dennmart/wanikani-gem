@@ -1,6 +1,6 @@
 [![Build Status](https://circleci.com/gh/dennmart/wanikani-gem.svg?style=svg)](https://circleci.com/gh/dennmart/wanikani-gem) [![Code Climate](https://codeclimate.com/github/dennmart/wanikani-gem.png)](https://codeclimate.com/github/dennmart/wanikani-gem)
 
-Want to get your Japanese Kanji studies in your Ruby? This gem uses [WaniKani's API](http://www.wanikani.com/api) so you can hook it into your Ruby projects.
+Want to get your Japanese Kanji studies in your Ruby? This gem uses [WaniKani's API](https://docs.api.wanikani.com) so you can hook it into your Ruby projects.
 
 ## Installation
 ```
@@ -9,21 +9,22 @@ $ gem install wanikani
 
 ## Usage
 
-To use the WaniKani gem, you need to set up client, using the API key from your account. The API key can be found in your [account settings](http://www.wanikani.com/account). Currently, the API only supports version 1 of the WaniKani API.
+To use the WaniKani gem, you need to set up client, using the API key from your account. The API key can be found in your [account settings](https://www.wanikani.com/settings/personal_access_tokens).
 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
+Wanikani.configure do |config|
+  config.api_key = "YOUR_API_KEY"
+end
+
+response = Wanikani::Subject.find_all
+@subjects = response.data
+
 ```
 
-By default, the gem uses the current API version (currently `v1.4`). You can use an older API version by specifying a valid API version when setting up the client.
+By default, the gem uses the API version 2 with revision 20170710.
 
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY", api_version: "v1")
-```
 
 ### Check if an API key is valid
 
@@ -46,199 +47,73 @@ Wanikani::Client.valid_api_key?("VALID_API_KEY")
   # => true
 ```
 
-### User Information
+### Endpoints
+
+The gem supports all endpoints documented in [WaniKani's API](https://docs.api.wanikani.com).
+
+#### Example: User Information
+
+Some endpoints like `User`, `Summary` and `SrsStages` return only a
+single object.
 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
+response = Wanikani::User.fetch
+# Response storing the meta data of the response.
+# To access the payload, access the field `data`. It'll return a Hash
 
-@client.user_information
-  # => {"username"=>"crabigator", "gravatar"=>"gravatarkey", "level"=>25, "title"=>"Turtles", "about"=>"I am the almighty crabigator!", "website"=>"http://www.wanikani.com/", "twitter"=>"WaniKaniApp", "topics_count"=>1000, "posts_count"=>500, "creation_date"=>1337820000, "vacation_date"=>null}
+@user = response.data
+  # => { "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42", "username": "crabigator", "level": 25, "profile_url": "https://www.wanikani.com/users/crabigator", "started_at": "2012-05-11T00:52:18.958466Z", "current_vacation_started_at": null, "subscription": { "active": true, "type": "recurring", "max_level_granted": 60, "period_ends_at": "2018-12-11T13:32:19.485748Z" }, "preferences": { "default_voice_actor_id": 1, "lessons_autoplay_audio": false, "lessons_batch_size": 5, "lessons_presentation_order": "ascending_level_then_subject", "reviews_autoplay_audio": false, "reviews_display_srs_indicator": true } }
 
-@client.on_vacation?
-  # => false
-
-# Get the full WaniKani API response.
-@client.full_user_response
 ```
 
-### Gravatar URL
+#### Example: Subjects
+
+Most endpoints can return either a specified object or a collection of objects.
 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
+response = Wanikani::Subject.find_all
 
-# Non-secure default URL:
-@client.gravatar_url
-  # => "http://www.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
+# or filter by giving a parameter
+response = Wanikani::Subject.find_by(hidden: false)
 
-# Specifying a size:
-@client.gravatar_url(size: 250)
-  # => "http://www.gravatar.com/avatar/GRAVATAR_KEY?d=mm&size=250"
+# Response storing the meta data of the response.
+# To access the payload, access the field `data`. It'll return an Array for collections
 
-# Secure URL:
-@client.gravatar_url(secure: true)
-  # => "https://secure.gravatar.com/avatar/GRAVATAR_KEY?d=mm"
+response.type
+  # => 'collection'
+
+@subjects = response.data
+  # => [ { "id": 440, "object": "kanji", "url": "https://api.wanikani.com/v2/subjects/440", "data_updated_at": "2018-03-29T23:14:30.805034Z", "data": {  "created_at": "2012-02-27T19:55:19.000000Z",  "level": 1,  "slug": "一",  "hidden_at": null,  "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",  "characters": "一",  "meanings": [  {  "meaning": "One",  "primary": true,  "accepted_answer": true  }  ],  "readings": [  {  "type": "onyomi",  "primary": true,  "accepted_answer": true,  "reading": "いち"  },  {  "type": "kunyomi",  "primary": false,  "accepted_answer": false,  "reading": "ひと"  },  {  "type": "nanori",  "primary": false,  "accepted_answer": false,  "reading": "かず"  }  ],  "component_subject_ids": [  1  ],  "amalgamation_subject_ids": [  56,  88,  91  ],  "visually_similar_subject_ids": [],  "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",  "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. \"Who did this to you?\" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",  "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",  "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",  "lesson_position": 2 } } ]
+
 ```
 
-### Study Queue
+Or if you want to access a single object.
 
 ```ruby
 require 'wanikani'
 
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
+response = Wanikani::Subject.find(440)
 
-@client.study_queue
-  # => {"lessons_available"=>77, "reviews_available"=>5, "next_review_date"=>1355893492, "reviews_available_next_hour"=>6, "reviews_available_next_day"=>24}
+# Response storing the meta data of the response.
+# To access the payload, access the field `data`. It'll return a Hash
 
-@client.lessons_available?
-  # => true
+response.type
+  # => 'kanji'
 
-@client.reviews_available?
-  # => true
-
-# Get the full WaniKani API response.
-@client.full_study_queue_response
+@kanji = response.data
+  # => {  "created_at": "2012-02-27T19:55:19.000000Z",  "level": 1,  "slug": "一",  "hidden_at": null,  "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",  "characters": "一",  "meanings": [  {  "meaning": "One",  "primary": true,  "accepted_answer": true  }  ],  "readings": [  {  "type": "onyomi",  "primary": true,  "accepted_answer": true,  "reading": "いち"  },  {  "type": "kunyomi",  "primary": false,  "accepted_answer": false,  "reading": "ひと"  },  {  "type": "nanori",  "primary": false,  "accepted_answer": false,  "reading": "かず"  }  ],  "component_subject_ids": [  1  ],  "amalgamation_subject_ids": [  56,  88,  91  ],  "visually_similar_subject_ids": [],  "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",  "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. \"Who did this to you?\" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",  "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",  "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",  "lesson_position": 2 }
 ```
 
-### Level Progression
+Endpoints returning collections may have limits to the number of elements
+they return. The API supports access via pagination, however this needs to
+be implemented outside of the gem.
 
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-@client.level_progression
-  # => {"current_level"=>25, "radicals_progress"=>5, "radicals_total"=>9, "kanji_progress"=>10, "kanji_total"=>23}
-
-# Get the full WaniKani API response.
-@client.full_level_progression_response
-```
-
-### SRS Distribution
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-@client.srs_distribution
-  # => {"apprentice"=>{"radicals"=>1, "kanji"=>4, "vocabulary"=>12, "total"=>17}, "guru"=>{"radicals"=>24, "kanji"=>75, "vocabulary"=>181, "total"=>280}, "master"=>{"radicals"=>38, "kanji"=>37, "vocabulary"=>82, "total"=>157}, "enlighten"=>{"radicals"=>82, "kanji"=>93, "vocabulary"=>189, "total"=>364}, "burned"=>{"radicals"=>19, "kanji"=>0, "vocabulary"=>0, "total"=>19}}
-
-# You can alternatively pass an SRS level as a parameter to get only that information.
-@client.srs_distribution("apprentice")
-  # => {"radicals"=>1, "kanji"=>4, "vocabulary"=>12, "total"=>17}
-
-# Get the full WaniKani API response.
-@client.full_srs_distribution_response
-```
-
-### Items by SRS level
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# Item type can be one of the following:
-#  - burned
-#  - enlighten
-#  - master
-#  - guru
-#  - apprentice
-@client.srs_items_by_type("burned")
-  # => [{"character"=>"丙", "meaning"=>"dynamite", "image"=>nil, "level"=>10, "user_specific"=>{"srs"=>"burned", "unlocked_date"=>1366941766, "available_date"=>1394492400, "burned"=>true, "burned_date"=>1387518371, "meaning_correct"=>8, "meaning_incorrect"=>0, "meaning_max_streak"=>8, "meaning_current_streak"=>8, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil, "meaning_note"=>nil, "user_synonyms"=>nil}, "type"=>"radical"}, ...]
-```
-
-### Recent Unlocks
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# You can pass an optional parameter for limiting the number of items returned (default: 10).
-@client.recent_unlocks({ limit: 3 })
-  # => [{"type"=>"vocabulary", "character"=>"首", "kana"=>"くび", "meaning"=>"neck", "level"=>6, "unlocked_date"=>1355879555}, {"type"=>"kanji", "character"=>"辺", "meaning"=>"area", "onyomi"=>"へん", "kunyomi"=>"あたり", "important_reading"=>"onyomi", "level"=>7, "unlocked_date"=>1355762469}, {"type"=>"radical", "character"=>"鳥", "meaning"=>"bird", "image"=>nil, "level"=>7, "unlocked_date"=>1355759947}]
-
-# You can specify the type of item you want returned (default: return all item types).
-@client.recent_unlocks({ limit: 1, type: "radical" })
-  # => [{"type"=>"radical", "character"=>"鳥", "meaning"=>"bird", "image"=>nil, "level"=>7, "unlocked_date"=>1355759947}]
-
-@client.recent_unlocks({ limit: 1, type: "vocabulary" })
-  # => [{"type"=>"vocabulary", "character"=>"首", "kana"=>"くび", "meaning"=>"neck", "level"=>6, "unlocked_date"=>1355879555}]
-
-@client.recent_unlocks({ limit: 1, type: "kanji" })
-  # => [{"type"=>"kanji", "character"=>"辺", "meaning"=>"area", "onyomi"=>"へん", "kunyomi"=>"あたり", "important_reading"=>"onyomi", "level"=>7, "unlocked_date"=>1355762469}]
-
-# Get the full WaniKani API response.
-@client.full_recent_unlocks_response
-```
-
-### Critical Items
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# You can pass an optional parameter for getting critical items under a specific percentage (default: 75).
-@client.critical_items(90)
-  # => [{"type"=>"vocabulary", "character"=>"地下", "kana"=>"ちか", "meaning"=>"underground", "level"=>6, "percentage"=>"84"}, {"type"=>"kanji", "character"=>"麦", "meaning"=>"wheat", "onyomi"=>nil, "kunyomi"=>"むぎ", "important_reading"=>"kunyomi", "level"=>5, "percentage"=>"89"}, {"type"=>"radical", "character"=>"亠", "meaning"=>"lid", "image"=>nil, "level"=>1, "percentage"=>"90"}]
-
-# Get the full WaniKani API response.
-@client.full_critical_items_response
-```
-
-### Radicals list by level
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# Using an Integer as the parameter will fetch the radical information for a single level.
-@client.radicals_list(1)
-  # => [{"character"=>"ト", "meaning"=>"toe", "image"=>nil, "level"=>1, "stats"=>{"srs"=>"burned", "unlocked_date"=>1337820726, "available_date"=>1354754764, "burned"=>true, "burned_date"=>1354754764, "meaning_correct"=>8, "meaning_incorrect"=>0, "meaning_max_streak"=>8, "meaning_current_streak"=>8, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil}}, {"character"=>"八", "meaning"=>"volcano", "image"=>"http://s3.wanikani.com/images/radicals/040cbe763aa3526b2905c96062137dd3db55a38a.png", "level"=>1, "stats"=>{"srs"=>"master", "unlocked_date"=>1337820726, "available_date"=>1358751147, "burned"=>false, "burned_date"=>0, "meaning_correct"=>10, "meaning_incorrect"=>2, "meaning_max_streak"=>8, "meaning_current_streak"=>2, "reading_correct"=>nil, "reading_incorrect"=>nil, "reading_max_streak"=>nil, "reading_current_streak"=>nil}}, ... ]
-
-# You can also use an array of Integers to get the radical information for multiple levels.
-@client.radicals_list([24, 25])
-  # => [{"character"=>"両", "meaning"=>"both", "image"=>nil, "level"=>25, "stats"=>nil}, {"character"=>"友", "meaning"=>"friend", "image"=>nil, "level"=>25, "stats"=>nil}, ...]
-```
-
-### Kanji list by level
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# Using an Integer as the parameter will fetch the Kanji information for a single level.
-@client.kanji_list(1)
-  # => [{"character"=>"一", "meaning"=>"one", "onyomi"=>"いち", "kunyomi"=>"ひと.*", "important_reading"=>"onyomi", "level"=>1, "stats"=>{"srs"=>"enlighten", "unlocked_date"=>1338820854, "available_date"=>1357346947, "burned"=>false, "burned_date"=>0, "meaning_correct"=>7, "meaning_incorrect"=>0, "meaning_max_streak"=>7, "meaning_current_streak"=>7, "reading_correct"=>7, "reading_incorrect"=>0, "reading_max_streak"=>7, "reading_current_streak"=>7}}, {"character"=>"口", "meaning"=>"mouth", "onyomi"=>"こう", "kunyomi"=>"くち", "important_reading"=>"onyomi", "level"=>1, "stats"=>{"srs"=>"guru", "unlocked_date"=>1338820840, "available_date"=>1356812196, "burned"=>false, "burned_date"=>0, "meaning_correct"=>32, "meaning_incorrect"=>1, "meaning_max_streak"=>25, "meaning_current_streak"=>7, "reading_correct"=>32, "reading_incorrect"=>21, "reading_max_streak"=>6, "reading_current_streak"=>6}}, ...]
-
-# You can also use an array of Integers to get the Kanji information for multiple levels.
-@client.kanji_list([24, 25])
-  # => [{"character"=>"模", "meaning"=>"imitation", "onyomi"=>"も", "kunyomi"=>"None", "important_reading"=>"onyomi", "level"=>25, "stats"=>nil}, {"character"=>"替", "meaning"=>"replace", "onyomi"=>"たい", "kunyomi"=>"か", "important_reading"=>"kunyomi", "level"=>25, "stats"=>nil}, ...]
-```
-
-### Vocabulary list by level
-
-```ruby
-require 'wanikani'
-
-@client = Wanikani::Client.new(api_key: "YOUR_API_KEY")
-
-# Using an Integer as the parameter will fetch the vocabulary information for a single level.
-@client.vocabulary_list(1)
-  # => [{"character"=>"ふじ山", "kana"=>"ふじさん", "meaning"=>"mt fuji, mount fuji", "level"=>1, "stats"=>{"srs"=>"enlighten", "unlocked_date"=>1342432965, "available_date"=>1358369044, "burned"=>false, "burned_date"=>0, "meaning_correct"=>7, "meaning_incorrect"=>0, "meaning_max_streak"=>7, "meaning_current_streak"=>7, "reading_correct"=>7, "reading_incorrect"=>0, "reading_max_streak"=>7, "reading_current_streak"=>7}}, {"character"=>"下げる", "kana"=>"さげる", "meaning"=>"to hang, to lower", "level"=>1, "stats"=>{"srs"=>"guru", "unlocked_date"=>1342414223, "available_date"=>1357146898, "burned"=>false, "burned_date"=>0, "meaning_correct"=>19, "meaning_incorrect"=>3, "meaning_max_streak"=>9, "meaning_current_streak"=>3, "reading_correct"=>19, "reading_incorrect"=>2, "reading_max_streak"=>11, "reading_current_streak"=>7}}, ...]
-
-# You can also use an array of Integers to get the vocabulary information for multiple levels.
-@client.vocabulary_list([24, 25])
-  # => [{"character"=>"後輩", "kana"=>"こうはい", "meaning"=>"junior, one's junior", "level"=>25, "stats"=>nil}, {"character"=>"年輩", "kana"=>"ねんぱい", "meaning"=>"elderly person, old person", "level"=>25, "stats"=>nil}, ...]
-```
+Please see the [Wanikani's API](https://docs.api.wanikani.com/20170710/#pagination)
+for more details.
 
 ## Handling API Request Exceptions
 
@@ -246,6 +121,12 @@ The gem will handle API request exceptions with the following exception classes:
 
 - `Wanikani::InvalidKey`: The API response will return a 401 status code indicating that the API key used is not valid. The gem will throw this exception so you can catch errors where the API key is not valid.
 - `Wanikani::Exception`: Any API responses with a non-successful (20x) status code **or** with an `error` key in the body will throw this exception, including additional information on the status code (if not a 20x status code) or the message in the body (if the `error` key is present in the response).
+
+## API Version 1
+
+Support for Wanikani API version 1 has been removed in Version 3.0 of this gem.
+The API is at the end of its lifecycle and will be shutdown by September 2020.
+Keep using Version 2.0 of this gem, if you need support for the old API.
 
 ## Contributing
 

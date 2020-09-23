@@ -1,62 +1,65 @@
 {
-  "user_information": {
-    "username": "crabigator",
-    "gravatar": "gravatarkey",
-    "level": 25,
-    "title": "Turtles",
-    "about": "I am the almighty crabigator!",
-    "website": "http://www.wanikani.com/",
-    "twitter": "WaniKaniApp",
-    "topics_count": 1000,
-    "posts_count": 500,
-    "creation_date": 1337820000
-  },
-  "requested_information": [
-    {
-      "character": "一",
-      "meaning": "one",
-      "onyomi": "いち",
-      "kunyomi": "ひと.*",
-      "important_reading": "onyomi",
-      "level": 1,
-      "stats": {
-        "srs": "enlighten",
-        "unlocked_date": 1338820854,
-        "available_date": 1357346947,
-        "burned": false,
-        "burned_date": 0,
-        "meaning_correct": 7,
-        "meaning_incorrect": 0,
-        "meaning_max_streak": 7,
-        "meaning_current_streak": 7,
-        "reading_correct": 7,
-        "reading_incorrect": 0,
-        "reading_max_streak": 7,
-        "reading_current_streak": 7
+  "id": 440,
+  "object": "kanji",
+  "url": "https://api.wanikani.com/v2/subjects/440",
+  "data_updated_at": "2018-03-29T23:14:30.805034Z",
+  "data": {
+    "amalgamation_subject_ids": [
+      56,
+      88,
+      91
+    ],
+    "auxiliary_meanings": [
+      {
+        "meaning": "one",
+        "type": "blacklist"
+      },
+      {
+        "meaning": "flat",
+        "type": "whitelist"
       }
-    },
-    {
-      "character": "口",
-      "meaning": "mouth",
-      "onyomi": "こう",
-      "kunyomi": "くち",
-      "important_reading": "onyomi",
-      "level": 1,
-      "stats": {
-        "srs": "guru",
-        "unlocked_date": 1338820840,
-        "available_date": 1356812196,
-        "burned": false,
-        "burned_date": 0,
-        "meaning_correct": 32,
-        "meaning_incorrect": 1,
-        "meaning_max_streak": 25,
-        "meaning_current_streak": 7,
-        "reading_correct": 32,
-        "reading_incorrect": 21,
-        "reading_max_streak": 6,
-        "reading_current_streak": 6
+    ],
+    "characters": "一",
+    "component_subject_ids": [
+      1
+    ],
+    "created_at": "2012-02-27T19:55:19.000000Z",
+    "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",
+    "hidden_at": null,
+    "lesson_position": 2,
+    "level": 1,
+    "meanings": [
+      {
+        "meaning": "One",
+        "primary": true,
+        "accepted_answer": true
       }
-    }
-  ]
+    ],
+    "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. \"Who did this to you?\" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",
+    "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",
+    "readings": [
+      {
+        "type": "onyomi",
+        "primary": true,
+        "accepted_answer": true,
+        "reading": "いち"
+      },
+      {
+        "type": "kunyomi",
+        "primary": false,
+        "accepted_answer": false,
+        "reading": "ひと"
+      },
+      {
+        "type": "nanori",
+        "primary": false,
+        "accepted_answer": false,
+        "reading": "かず"
+      }
+    ],
+    "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",
+    "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",
+    "slug": "一",
+    "visually_similar_subject_ids": []
+  }
 }

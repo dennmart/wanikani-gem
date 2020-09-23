@@ -3,9 +3,19 @@ require 'wanikani'
 
 WebMock.disable_net_connect!
 
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Dir.pwd + '/spec/support/**/*.rb'].each { |f| require f }
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+
+  config.before do
+    Wanikani.configure do |config|
+      config.api_key = "my-api-key"
+    end
   end
 
   config.mock_with :rspec do |mocks|
@@ -44,10 +54,6 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
-end
 
-def wanikani_url(client, resource, optional_arg = nil)
-  raise ArgumentError, "You must specify a Wanikani::Client instance" unless client.is_a?(Wanikani::Client)
-  raise ArgumentError, "You must define a resource to query Wanikani" if resource.nil? || resource.empty?
-  "#{Wanikani::API_ENDPOINT}/api/#{client.api_version}/user/#{client.api_key}/#{resource}/#{optional_arg}"
+  config.include(Wanikani::Support)
 end

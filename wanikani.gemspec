@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "webmock", "~> 3.0"
 
   s.post_install_message = <<-MSG
-    Version 2.0 of the wanikani gem introduces many breaking changes.
+    Version 3.0 of the wanikani gem introduces many breaking changes in support of Wanikani API 2.0.
     Please view the README for more information: https://github.com/dennmart/wanikani-gem
   MSG
 end
