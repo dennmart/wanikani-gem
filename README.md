@@ -124,9 +124,7 @@ The gem will handle API request exceptions with the following exception classes:
 
 ## API Version 1
 
-Support for Wanikani API version 1 has been removed in Version 3.0 of this gem.
-The API is at the end of its lifecycle and will be shutdown by September 2020.
-Keep using Version 2.0 of this gem, if you need support for the old API.
+Support for Wanikani API version 1 has been removed in Version 3.0 of this gem. The API has been shut down in September 2020 and is no longer accessible.
 
 ## Contributing
 
