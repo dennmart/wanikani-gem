@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wanikani (2.0.0)
+    wanikani (3.0.0)
       faraday (~> 0.12)
       faraday_middleware (~> 0.12)
 
